@@ -827,11 +827,8 @@ figure{ margin:0; }
 
 /* ============================================================
    TELJESÍTMÉNY
-   A hajtás alatti szekciók csak akkor renderelődnek, amikor
-   a közelükbe érünk. A megadott becsült magasság megakadályozza,
-   hogy a görgetősáv ugráljon.
+   Megjegyzés: a content-visibility:auto itt szándékosan NINCS
+   használva. A böngésző a kihagyott szekciókban nem indítja el a
+   loading="lazy" képek betöltését, így a fotók üresen maradtak.
+   A gyorsítást a videó lépcsőzetes betöltése és a lazy képek adják.
    ============================================================ */
-#folyamat, #miert, #referenciak, #velemenyek, #gyik, #kapcsolat{
-  content-visibility:auto;
-  contain-intrinsic-size:auto 900px;
-}
