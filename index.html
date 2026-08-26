@@ -3,27 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#F6F3EE">
-<title>Chalet in Tirol — Prémium alpesi pihenés</title>
-<meta name="description" content="Kortárs kényelem és valódi alpesi nyugalom Tirol lenyűgöző hegyei között. Szobák, wellness és élmények egy prémium tiroli chalet hotelben.">
+<meta name="theme-color" content="#F5F1EA">
+<title>Chalet Salzburg — Prémium alpesi pihenés</title>
+<meta name="description" content="Kortárs kényelem és valódi alpesi nyugalom a salzburgi hegyek között. Szobák, gasztronómia, nyári és téli élmények egy prémium alpesi chaletben.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+<link rel="preconnect" href="https://images.pexels.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/style.css">
 <noscript><style>
   .loader{ display:none !important; }
-  .hero{ height:100svh !important; }
-  .hero__stage{ position:relative !important; }
+  .hero{ height:100vh; height:100svh; }
+  .hero__stage{ position:relative; }
   .hero__video,.hero__fadeout,.hero__wash2,.scrollhint,.layer--arrive{ display:none !important; }
   .hero__poster{ opacity:1 !important; }
   .layer--intro > *{ opacity:1 !important; transform:none !important; }
+  .rev{ opacity:1 !important; transform:none !important; }
 </style></noscript>
 </head>
 <body>
 
-<a class="skip-link" href="#tartalom">Ugrás a tartalomra</a>
+<a class="skip-link" href="#hotel">Ugrás a tartalomra</a>
 
 <!-- ══════════════ BETÖLTŐ ══════════════ -->
 <div class="loader" id="loader" role="status" aria-live="polite" aria-label="Az oldal betöltése folyamatban">
@@ -37,24 +40,24 @@
 <!-- ══════════════ NAVIGÁCIÓ ══════════════ -->
 <header class="nav" id="nav">
   <div class="nav__in">
-    <a class="brand" href="#" aria-label="Chalet in Tirol – kezdőlap">
+    <a class="brand" href="#" aria-label="Chalet Salzburg – kezdőlap">
       <span class="brand__mark" aria-hidden="true"></span>
-      <span class="brand__txt"><strong>CHALET</strong><em>in Tirol</em></span>
+      <span class="brand__txt"><strong>CHALET</strong><em>Salzburg</em></span>
     </a>
 
     <nav class="menu" id="menu" aria-label="Fő navigáció">
       <ul class="menu__list">
-        <li><a href="#tartalom">A hotel</a></li>
-        <li><a href="#tartalom">Szobák</a></li>
-        <li><a href="#tartalom">Wellness</a></li>
-        <li><a href="#tartalom">Élmények</a></li>
-        <li><a href="#tartalom">Galéria</a></li>
-        <li><a href="#tartalom">Kapcsolat</a></li>
+        <li><a href="#hotel">A hotel</a></li>
+        <li><a href="#szobak">Szobák</a></li>
+        <li><a href="#gasztronomia">Gasztronómia</a></li>
+        <li><a href="#nyar">Nyár</a></li>
+        <li><a href="#tel">Tél</a></li>
+        <li><a href="#kapcsolat">Kapcsolat</a></li>
       </ul>
-      <a class="btn btn--solid menu__cta" href="#tartalom">Foglalás</a>
+      <a class="btn btn--solid menu__cta" href="#kapcsolat">Foglalás</a>
     </nav>
 
-    <a class="btn btn--solid nav__cta" href="#tartalom">Foglalás</a>
+    <a class="btn btn--solid nav__cta" href="#kapcsolat">Foglalás</a>
 
     <button class="burger" id="burger" type="button" aria-label="Menü megnyitása" aria-expanded="false" aria-controls="menu">
       <span aria-hidden="true"></span><span aria-hidden="true"></span>
@@ -76,28 +79,25 @@
 
     <div class="hero__ui">
 
-      <!-- 0–25%: nyitó szöveg -->
       <div class="layer layer--intro" id="lyIntro">
         <p class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span>Prémium alpesi pihenés</p>
         <h1 class="display">A hegyek csendje.<br><span class="display__soft">Az Ön pillanata.</span></h1>
-        <p class="lead">Kortárs kényelem és valódi alpesi nyugalom Tirol lenyűgöző hegyei között.</p>
+        <p class="lead">Kortárs kényelem és valódi alpesi nyugalom a salzburgi hegyek lenyűgöző világában.</p>
         <div class="ctarow">
-          <a class="btn btn--solid btn--lg" href="#tartalom">Fedezze fel a hotelt</a>
-          <a class="btn btn--ghost btn--lg" href="#tartalom">Szobák és lakosztályok</a>
+          <a class="btn btn--solid btn--lg" href="#hotel">Fedezze fel a hotelt</a>
+          <a class="btn btn--ghost btn--lg" href="#szobak">Szobák és lakosztályok</a>
         </div>
       </div>
 
-      <!-- 85–100%: záró szöveg -->
       <div class="layer layer--arrive" id="lyArrive">
         <p class="eyebrow eyebrow--center"><span class="eyebrow__rule" aria-hidden="true"></span>Üdvözöljük</p>
         <h2 class="display display--md">Megérkezett.</h2>
-        <p class="lead lead--center">Fedezze fel a szobákat, a wellnessélményt és Tirol természetes nyugalmát.</p>
-        <a class="btn btn--solid btn--lg" href="#tartalom" id="enterBtn">Belépek</a>
+        <p class="lead lead--center">Fedezze fel a szobákat, a gasztronómiát és a hegyek természetes nyugalmát.</p>
+        <a class="btn btn--solid btn--lg" href="#hotel" id="enterBtn">Belépek</a>
       </div>
 
     </div>
 
-    <!-- középső szakasz: visszafogott scrolljelző -->
     <div class="scrollhint" id="hint" aria-hidden="true">
       <span class="scrollhint__txt">Görgessen a belépéshez</span>
       <span class="scrollhint__line"><i></i></span>
@@ -106,28 +106,250 @@
   </div>
 </section>
 
-<!-- ══════════════ A WEBOLDAL FOLYTATÁSA ══════════════ -->
-<main id="tartalom">
-  <section class="sec sec--intro">
-    <div class="wrap">
+<main>
+
+<!-- ══════════════ A HOTEL ══════════════ -->
+<section class="sec sec--hotel" id="hotel">
+  <div class="wrap">
+    <header class="sec__head rev">
       <p class="eyebrow eyebrow--dark"><span class="eyebrow__rule" aria-hidden="true"></span>Fedezze fel</p>
       <h2 class="sec__title">Az Alpok ritmusa.<br><span class="sec__title-soft">Az Ön pihenése.</span></h2>
       <p class="sec__lead">Egy hely, ahol a kortárs kényelem, a természetes anyagok és a hegyek nyugalma egységes élménnyé válik.</p>
+    </header>
 
-      <div class="placeholder">
-        <span>TARTALOM</span>
+    <div class="duo">
+      <figure class="duo__big rev">
+        <!-- Stock source: Unsplash | Photographer: Valentin DUCRETTET | Original URL: https://unsplash.com/photos/luxurious-wooden-chalet-interior-with-dining-and-living-areas-gdhAPf_kZ14 -->
+        <img data-kep="hotel-belso" data-szelessegek="1000,1600,2000" width="2000" height="1333"
+             sizes="(max-width: 860px) 100vw, 62vw"
+             alt="Faburkolatú alpesi chalet nappalija étkezővel, természetes fényben">
+      </figure>
+      <figure class="duo__small rev">
+        <!-- Stock source: Pexels | Photographer: Heinz Klier | Original URL: https://www.pexels.com/photo/traditional-alpine-chalet-with-mountain-view-39045418/ -->
+        <img data-kep="hotel-kulso" data-szelessegek="800,1200" width="1200" height="1800" loading="lazy"
+             sizes="(max-width: 860px) 100vw, 32vw"
+             alt="Hagyományos alpesi chalet fa erkélye alulnézetből, mögötte a hegyekkel">
+      </figure>
+    </div>
+
+    <ul class="tenyek rev">
+      <li><b>Salzburger Land</b><span>Alpesi fekvés</span></li>
+      <li><b>Fa, kő, lenvászon</b><span>Természetes anyagok</span></li>
+      <li><b>Egész évben</b><span>Nyári és téli élmények</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════════ SZOBÁK ══════════════ -->
+<section class="sec sec--szobak" id="szobak">
+  <div class="wrap">
+    <div class="split">
+      <figure class="split__media rev">
+        <!-- Stock source: Unsplash | Photographer: Dominik Neuner | Original URL: https://unsplash.com/photos/relaxing-lounge-area-with-mountain-view-at-sunrise-IcN_5_He218 -->
+        <img data-kep="szoba-panorama" data-szelessegek="1000,1600,2000" width="2000" height="1333" loading="lazy"
+             sizes="(max-width: 860px) 100vw, 52vw"
+             alt="Világos lakosztály-nappali panorámaablakkal, mögötte havas hegycsúcsokkal, hajnali fényben">
+      </figure>
+      <div class="split__text rev">
+        <p class="eyebrow eyebrow--dark"><span class="eyebrow__rule" aria-hidden="true"></span>Szobák és lakosztályok</p>
+        <h2 class="sec__title sec__title--sm">Részletek, amelyek érkezésére készen állnak.</h2>
+        <p class="sec__lead">A rendezett terek, a friss textíliák és a gondosan előkészített szobák teszik igazán természetessé a megérkezés pillanatát.</p>
+        <figure class="split__inset">
+          <!-- Stock source: Pexels | Photographer: Liliana Drew | Original URL: https://www.pexels.com/photo/a-woman-fixing-a-bed-9462335/ -->
+          <img data-kep="szoba-housekeeping" data-szelessegek="800,1200" width="1200" height="1800" loading="lazy"
+               sizes="(max-width: 860px) 100vw, 30vw"
+               alt="Szállodai munkatárs friss, fehér ágyneműt igazít el a megvetett ágyon">
+        </figure>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- ══════════════ GASZTRONÓMIA ══════════════ -->
+<section class="sec sec--gasztro" id="gasztronomia">
+  <div class="wrap">
+    <header class="sec__head sec__head--center rev">
+      <p class="eyebrow eyebrow--dark eyebrow--center"><span class="eyebrow__rule" aria-hidden="true"></span>Ízek a hegyek között</p>
+      <h2 class="sec__title sec__title--center">A nap első kávéjától<br><span class="sec__title-soft">az esti à la carte vacsoráig.</span></h2>
+      <p class="sec__lead sec__lead--center">A hegyvidéki kikapcsolódáshoz hozzátartoznak a nyugodt reggelek, a gondosan elkészített fogások és az esték, amelyek egy pohár ital mellett érnek véget.</p>
+    </header>
+  </div>
+
+  <div class="gastro">
+    <div class="gastro__media" id="gastroMedia" aria-hidden="true">
+      <!-- Stock source: Pexels | Photographer: Diego Simonovich | Original URL: https://www.pexels.com/photo/breakfast-and-coffee-served-on-a-table-22598227/ -->
+      <img class="gastro__img is-on" data-gastro="0" data-kep="gasztro-reggeli" data-szelessegek="1000,1600" width="1600" height="2400" loading="lazy" alt="">
+      <!-- Stock source: Pexels | Photographer: Willians Huerta | Original URL: https://www.pexels.com/photo/chef-plating-gourmet-dish-in-kitchen-36430150/ -->
+      <img class="gastro__img" data-gastro="1" data-kep="gasztro-sef" data-szelessegek="1000,1600" width="1600" height="2400" loading="lazy" alt="">
+      <!-- Stock source: Pexels | Photographer: Airam Dato-on | Original URL: https://www.pexels.com/photo/man-preparing-cocktails-in-a-bar-16807989/ -->
+      <img class="gastro__img" data-gastro="2" data-kep="gasztro-bar" data-szelessegek="1000,1600" width="1600" height="2400" loading="lazy" alt="">
+    </div>
+
+    <div class="gastro__text">
+
+      <article class="gastro__block" data-gastro-blokk="0">
+        <p class="eyebrow eyebrow--dark"><span class="eyebrow__rule" aria-hidden="true"></span>01 — Reggeli</p>
+        <h3 class="gastro__title">Reggel, a saját ritmusában.</h3>
+        <p class="gastro__lead">Friss péksütemények, helyi alapanyagok, meleg reggeli fogások és a hegyek látványa teszik teljessé a nap első pillanatait.</p>
+        <figure class="gastro__inset">
+          <!-- Stock source: Unsplash | Photographer: Richard Bell | Original URL: https://unsplash.com/photos/person-serving-breakfast-buffet-with-bacon-and-pastries-SdvrF7U-tVI -->
+          <img data-kep="gasztro-felszolgalas" data-szelessegek="800,1200" width="1200" height="800" loading="lazy"
+               sizes="(max-width: 860px) 100vw, 34vw"
+               alt="Munkatárs meleg reggeli fogásokat és péksüteményeket készít elő a pulton">
+        </figure>
+      </article>
+
+      <article class="gastro__block" data-gastro-blokk="1">
+        <p class="eyebrow eyebrow--dark"><span class="eyebrow__rule" aria-hidden="true"></span>02 — À la carte élmény</p>
+        <h3 class="gastro__title">Esték, amelyeknek íze marad.</h3>
+        <p class="gastro__lead">Szezonális alapanyagokra, letisztult ízekre és igényes tálalásra épülő fogások egy nyugodt, természetes környezetben.</p>
+        <figure class="gastro__inset">
+          <!-- Stock source: Pexels | Photographer: Andrea Piacquadio | Original URL: https://www.pexels.com/photo/waiter-with-tray-working-in-stylish-restaurant-3769740/ -->
+          <img data-kep="gasztro-pincer" data-szelessegek="800,1200" width="1200" height="1800" loading="lazy"
+               sizes="(max-width: 860px) 100vw, 34vw"
+               alt="Pincér tálcával halad végig az elegáns, meleg fényű étteremben">
+        </figure>
+      </article>
+
+      <article class="gastro__block" data-gastro-blokk="2">
+        <p class="eyebrow eyebrow--dark"><span class="eyebrow__rule" aria-hidden="true"></span>03 — Bár és esti pihenés</p>
+        <h3 class="gastro__title">Egy ital. Egy kandalló. Egy hosszú este.</h3>
+        <p class="gastro__lead">Klasszikus italok, gondosan elkészített koktélok és egy nyugodt tér az élményekkel teli nap lezárásához.</p>
+        <figure class="gastro__inset">
+          <!-- Stock source: Unsplash | Photographer: Clay Banks | Original URL: https://unsplash.com/photos/a-living-room-with-a-fire-place-inside-of-it-f_6yPIgDxxs -->
+          <img data-kep="gasztro-kandallo" data-szelessegek="800,1200" width="1200" height="800" loading="lazy"
+               sizes="(max-width: 860px) 100vw, 34vw"
+               alt="Égő kandalló egy fával burkolt nappaliban, meleg esti fényben">
+        </figure>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ NYÁRI PROGRAMOK ══════════════ -->
+<section class="sec sec--nyar" id="nyar">
+  <div class="wrap">
+    <header class="sec__head rev">
+      <p class="eyebrow eyebrow--dark"><span class="eyebrow__rule" aria-hidden="true"></span>Nyár</p>
+      <h2 class="sec__title">Hosszú napok<br><span class="sec__title-soft">a hegyek között.</span></h2>
+      <p class="sec__lead">Ösvények, panorámák és nyugodt délutánok — a nyári hegyvidék a saját tempójában.</p>
+    </header>
+
+    <ul class="kartyak">
+      <li class="kartya rev">
+        <figure class="kartya__media">
+          <!-- Stock source: Pexels | Photographer: Jonathan Cooper | Original URL: https://www.pexels.com/photo/man-using-a-mountain-bike-in-the-forest-11715051/ -->
+          <img data-kep="nyar-bicikli" data-szelessegek="800,1200" width="1200" height="1800" loading="lazy"
+               sizes="(max-width: 860px) 100vw, 32vw"
+               alt="Hegyikerékpáros erdei ösvényen tekerve, természetes környezetben">
+        </figure>
+        <h3 class="kartya__title">Hegyikerékpár és e-bike</h3>
+        <p class="kartya__text">Erdei ösvények és hosszú, hegyi útvonalak — a lassabb kirándulástól a technikás nyomvonalakig.</p>
+      </li>
+      <li class="kartya rev">
+        <figure class="kartya__media">
+          <!-- Stock source: Pexels | Photographer: Yaroslav Shuraev | Original URL: https://www.pexels.com/photo/a-couple-hiking-in-the-mountain-4763005/ -->
+          <img data-kep="nyar-tura" data-szelessegek="800,1200" width="1200" height="1800" loading="lazy"
+               sizes="(max-width: 860px) 100vw, 32vw"
+               alt="Két túrázó hátizsákkal halad felfelé egy zöld hegygerincen">
+        </figure>
+        <h3 class="kartya__title">Túrázás</h3>
+        <p class="kartya__text">Reggeli indulás, gerincutak és egy hosszú pihenő odafent, ahol csak a szél hallatszik.</p>
+      </li>
+      <li class="kartya rev">
+        <figure class="kartya__media">
+          <!-- Stock source: Unsplash | Photographer: Tino Rischawy | Original URL: https://unsplash.com/photos/a-green-mountain-with-a-few-clouds-in-the-sky-NKDI7qlLsM0 -->
+          <img data-kep="nyar-panorama" data-szelessegek="800,1200" width="1200" height="800" loading="lazy"
+               sizes="(max-width: 860px) 100vw, 32vw"
+               alt="Zöld alpesi hegyoldal néhány felhővel a nyári égen">
+        </figure>
+        <h3 class="kartya__title">Panoráma és alpesi tavak</h3>
+        <p class="kartya__text">Kilátópontok, hegyi tavak és piknik a fűben — a nyár legegyszerűbb örömei.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════════ TÉLI PROGRAMOK ══════════════ -->
+<section class="sec sec--tel" id="tel">
+  <div class="wrap">
+    <header class="sec__head rev">
+      <p class="eyebrow eyebrow--dark"><span class="eyebrow__rule" aria-hidden="true"></span>Tél</p>
+      <h2 class="sec__title">Csend, hó,<br><span class="sec__title-soft">hosszú lesiklások.</span></h2>
+      <p class="sec__lead">A téli hegyvidék nyugodt oldala: friss hó, tiszta levegő és meleg esték.</p>
+    </header>
+
+    <div class="tel-fo rev">
+      <figure class="tel-fo__media">
+        <!-- Stock source: Pexels | Photographer: Jonas Horsch | Original URL: https://www.pexels.com/photo/skier-descending-snowy-slope-in-austria-36548334/ -->
+        <img data-kep="tel-sieles" data-szelessegek="1200,1600,2000" width="2000" height="1333" loading="lazy"
+             sizes="100vw"
+             alt="Síelő halad lefelé egy tágas, friss havas lejtőn az osztrák Alpokban">
+      </figure>
+      <div class="tel-fo__txt">
+        <h3 class="kartya__title">Síelés</h3>
+        <p class="kartya__text">Széles lejtők, hosszú lesiklások és nyugodt tempó — a hegy a nap végén is ugyanolyan csendes.</p>
+      </div>
+    </div>
+
+    <ul class="kartyak kartyak--ketto">
+      <li class="kartya rev">
+        <figure class="kartya__media">
+          <!-- Stock source: Pexels | Photographer: rois martin | Original URL: https://www.pexels.com/photo/back-view-of-person-walking-on-snow-covered-ground-6263776/ -->
+          <img data-kep="tel-tura" data-szelessegek="800,1200" width="1200" height="1800" loading="lazy"
+               sizes="(max-width: 860px) 100vw, 46vw"
+               alt="Túrázó botokkal halad a havas hegyoldalon, háttal a kamerának">
+        </figure>
+        <h3 class="kartya__title">Téli túra és hótalpazás</h3>
+        <p class="kartya__text">Friss havon vezető ösvények, ahol a csend legalább olyan fontos, mint a táv.</p>
+      </li>
+      <li class="kartya rev">
+        <figure class="kartya__media">
+          <!-- Stock source: Pexels | Photographer: Michael Fischer | Original URL: https://www.pexels.com/photo/charming-snow-covered-cabin-in-austrian-alps-35685564/ -->
+          <img data-kep="tel-menedek" data-szelessegek="800,1200" width="1200" height="1800" loading="lazy"
+               sizes="(max-width: 860px) 100vw, 46vw"
+               alt="Hóval borított fa hegyi faház fenyők között, téli délutáni fényben">
+        </figure>
+        <h3 class="kartya__title">Hegyi menedékek</h3>
+        <p class="kartya__text">Egy hosszú nap után faház, meleg fény és lassan telő délután.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════════ KAPCSOLAT ══════════════ -->
+<section class="sec sec--kapcsolat" id="kapcsolat">
+  <div class="wrap kapcsolat rev">
+    <div>
+      <p class="eyebrow eyebrow--dark"><span class="eyebrow__rule" aria-hidden="true"></span>Kapcsolat</p>
+      <h2 class="sec__title">Foglalja le<br><span class="sec__title-soft">a saját hegyi idejét.</span></h2>
+    </div>
+    <div class="kapcsolat__jobb">
+      <p class="sec__lead">Írjon nekünk, és segítünk kiválasztani az évszakhoz és az elképzeléseihez illő időpontot.</p>
+      <div class="ctarow">
+        <a class="btn btn--dark btn--lg" href="#kapcsolat">Ajánlatot kérek</a>
+        <a class="btn btn--outline btn--lg" href="#hotel">Vissza a hotelhez</a>
+      </div>
+      <p class="kapcsolat__info">TARTALOM — elérhetőségek, cím, telefonszám</p>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <footer class="foot">
   <div class="wrap foot__in">
-    <span>© 2026 Chalet in Tirol</span>
-    <span>Tirol, Ausztria</span>
+    <span>© 2026 Chalet Salzburg</span>
+    <span>Salzburger Land, Ausztria</span>
+  </div>
+  <div class="wrap foot__jog">
+    <p>A weboldalon szereplő fényképek stockfotók, hangulati célt szolgálnak, és nem a szálláshely saját felvételei. A bemutatott terek, fogások, programok és munkafolyamatok illusztrációk — a végleges tartalom valódi, ellenőrzött fotókkal és szolgáltatásleírással kerül publikálásra. Fotók: Unsplash és Pexels; a pontos forrás minden képnél a HTML-ben és a <code>js/kepek.js</code> fájlban dokumentálva.</p>
   </div>
 </footer>
 
+<script src="js/kepek.js" defer></script>
 <script src="js/main.js" defer></script>
+<script src="js/szekciok.js" defer></script>
 </body>
 </html>

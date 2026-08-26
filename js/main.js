@@ -1,5 +1,5 @@
 /* ============================================================
-   Chalet in Tirol — görgetéssel vezérelt videós hero
+   Chalet Salzburg — görgetéssel vezérelt videós hero
    ------------------------------------------------------------
    A videó soha nem indul el magától: az aktuális időpontját
    kizárólag a görgetési pozíció határozza meg — lefelé előre,

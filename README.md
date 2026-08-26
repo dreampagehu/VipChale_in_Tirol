@@ -1,4 +1,7 @@
-# VipChale in Tirol — görgetéssel vezérelt videós hero
+# Chalet Salzburg — görgetéssel vezérelt videós hero
+
+> A repó neve történeti okból `VipChale_in_Tirol`; a weboldal tartalma Salzburgra
+> hivatkozik. Átnevezés: `gh repo rename UJ-NEV` (a GitHub Pages URL is változik).
 
 Teljes képernyős hero szekció egy prémium tiroli chalet hotel egyoldalas
 weboldalához. A videó **nem** játszik le magától: az aktuális képkockáját
@@ -12,9 +15,11 @@ animációs könyvtár.
 ## Felépítés
 
 ```
-index.html              a teljes oldal (navigáció, hero, következő szekció)
-css/style.css           designrendszer és a hero összes állapota
-js/main.js              a görgetésmotor
+index.html              a teljes oldal (navigáció, hero, tartalmi szekciók)
+css/style.css           designrendszer, hero-állapotok és a szekciók
+js/main.js              a hero görgetésmotorja
+js/kepek.js             képjegyzék: minden stockfotó forrása egy helyen
+js/szekciok.js          felfedő animációk és a gasztronómiai sticky galéria
 elementor-hero.html     egyfájlos, beilleszthető változat Elementor HTML widgetbe
 tools/build-elementor.py   az elementor-hero.html előállítása a fenti háromból
 assets/
@@ -191,3 +196,53 @@ Ha az `index.html`, a `css/style.css` vagy a `js/main.js` módosul:
 ```bash
 python3 tools/build-elementor.py
 ```
+
+
+## Fotók
+
+A weboldalon **kizárólag valódi fényképfelvételek** szerepelnek az Unsplash és a
+Pexels ingyenes licence alatt (weboldalas és kereskedelmi felhasználás
+engedélyezett). Nincs AI-generált, renderelt vagy illusztrációs kép, és nincs
+ismeretlen licencű találat.
+
+Minden kép forrása két helyen dokumentált:
+
+- **HTML-komment** közvetlenül a kép fölött:
+  `<!-- Stock source: … | Photographer: … | Original URL: … -->`
+- **`js/kepek.js`** — géppel olvasható jegyzék: forrás, fotós, eredeti URL,
+  felhasználási hely, alt szöveg, eredeti méret.
+
+Csere: elég a `js/kepek.js` megfelelő `base` értékét átírni, a `srcset` és a
+méretek maradnak. Az oldal a `data-kep="…"` attribútummal jelölt képeket
+automatikusan ebből tölti fel.
+
+| Hely | Forrás | Fotós |
+|---|---|---|
+| A hotel — chalet belső | Unsplash | Valentin DUCRETTET |
+| A hotel — fa homlokzat | Pexels | Heinz Klier |
+| Szobák — lakosztály panorámával | Unsplash | Dominik Neuner |
+| Szobák — housekeeping | Pexels | Liliana Drew |
+| Gasztronómia — reggeli | Pexels | Diego Simonovich |
+| Gasztronómia — felszolgálás | Unsplash | Richard Bell |
+| Gasztronómia — séf | Pexels | Willians Huerta |
+| Gasztronómia — pincér | Pexels | Andrea Piacquadio |
+| Gasztronómia — bár | Pexels | Airam Dato-on |
+| Gasztronómia — kandalló | Unsplash | Clay Banks |
+| Nyár — hegyikerékpár | Pexels | Jonathan Cooper |
+| Nyár — túrázás | Pexels | Yaroslav Shuraev |
+| Nyár — panoráma | Unsplash | Tino Rischawy |
+| Tél — síelés | Pexels | Jonas Horsch |
+| Tél — havas túra | Pexels | rois martin |
+| Tél — hegyi faház | Pexels | Michael Fischer |
+
+Technikai kezelés: magyar `alt` szöveg mindenhol, `loading="lazy"` a hajtás
+alatti képeknél (a hero és az első nagy kép nem lazy), `width`/`height` a layout
+shift ellen, `srcset` + `sizes` reszponzív méretezéssel, `object-fit: cover` és
+képenként hangolt `object-position` a mobilos vágáshoz.
+
+### Tartalmi korlát
+
+A stockfotók **vizuális koncepciót** mutatnak, nem a szálláshely saját
+felvételei. Az oldal lábléce ezt ki is mondja. Publikálás előtt minden fotót és
+minden szolgáltatási állítást valódi, ellenőrzött tartalomra kell cserélni vagy
+jóvá kell hagyatni.

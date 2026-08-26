@@ -9,24 +9,24 @@
 
 <header class="nav" id="chx-nav">
   <div class="nav__in">
-    <a class="brand" href="#" aria-label="Chalet in Tirol – kezdőlap">
+    <a class="brand" href="#" aria-label="Chalet Salzburg – kezdőlap">
       <span class="brand__mark" aria-hidden="true"></span>
-      <span class="brand__txt"><strong>CHALET</strong><em>in Tirol</em></span>
+      <span class="brand__txt"><strong>CHALET</strong><em>Salzburg</em></span>
     </a>
 
     <nav class="menu" id="chx-menu" aria-label="Fő navigáció">
       <ul class="menu__list">
-        <li><a href="#" data-next>A hotel</a></li>
-        <li><a href="#" data-next>Szobák</a></li>
-        <li><a href="#" data-next>Wellness</a></li>
-        <li><a href="#" data-next>Élmények</a></li>
-        <li><a href="#" data-next>Galéria</a></li>
-        <li><a href="#" data-next>Kapcsolat</a></li>
+        <li><a href="#hotel">A hotel</a></li>
+        <li><a href="#szobak">Szobák</a></li>
+        <li><a href="#gasztronomia">Gasztronómia</a></li>
+        <li><a href="#nyar">Nyár</a></li>
+        <li><a href="#tel">Tél</a></li>
+        <li><a href="#kapcsolat">Kapcsolat</a></li>
       </ul>
-      <a class="btn btn--solid menu__cta" href="#" data-next>Foglalás</a>
+      <a class="btn btn--solid menu__cta" href="#kapcsolat">Foglalás</a>
     </nav>
 
-    <a class="btn btn--solid nav__cta" href="#" data-next>Foglalás</a>
+    <a class="btn btn--solid nav__cta" href="#kapcsolat">Foglalás</a>
 
     <button class="burger" id="chx-burger" type="button" aria-label="Menü megnyitása" aria-expanded="false" aria-controls="chx-menu">
       <span aria-hidden="true"></span><span aria-hidden="true"></span>
@@ -56,28 +56,25 @@
 
     <div class="hero__ui">
 
-      <!-- 0–25%: nyitó szöveg -->
       <div class="layer layer--intro" id="chx-lyIntro">
         <p class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span>Prémium alpesi pihenés</p>
         <h1 class="display">A hegyek csendje.<br><span class="display__soft">Az Ön pillanata.</span></h1>
-        <p class="lead">Kortárs kényelem és valódi alpesi nyugalom Tirol lenyűgöző hegyei között.</p>
+        <p class="lead">Kortárs kényelem és valódi alpesi nyugalom a salzburgi hegyek lenyűgöző világában.</p>
         <div class="ctarow">
-          <a class="btn btn--solid btn--lg" href="#" data-next>Fedezze fel a hotelt</a>
-          <a class="btn btn--ghost btn--lg" href="#" data-next>Szobák és lakosztályok</a>
+          <a class="btn btn--solid btn--lg" href="#hotel">Fedezze fel a hotelt</a>
+          <a class="btn btn--ghost btn--lg" href="#szobak">Szobák és lakosztályok</a>
         </div>
       </div>
 
-      <!-- 85–100%: záró szöveg -->
       <div class="layer layer--arrive" id="chx-lyArrive">
         <p class="eyebrow eyebrow--center"><span class="eyebrow__rule" aria-hidden="true"></span>Üdvözöljük</p>
         <h2 class="display display--md">Megérkezett.</h2>
-        <p class="lead lead--center">Fedezze fel a szobákat, a wellnessélményt és Tirol természetes nyugalmát.</p>
-        <a class="btn btn--solid btn--lg" href="#" data-next id="chx-enterBtn">Belépek</a>
+        <p class="lead lead--center">Fedezze fel a szobákat, a gasztronómiát és a hegyek természetes nyugalmát.</p>
+        <a class="btn btn--solid btn--lg" href="#hotel" id="chx-enterBtn">Belépek</a>
       </div>
 
     </div>
 
-    <!-- középső szakasz: visszafogott scrolljelző -->
     <div class="scrollhint" id="chx-hint" aria-hidden="true">
       <span class="scrollhint__txt">Görgessen a belépéshez</span>
       <span class="scrollhint__line"><i></i></span>
@@ -219,6 +216,14 @@
 @media (prefers-reduced-motion: reduce){
 #chx *{ animation:none !important; transition-duration:.01ms !important; }
 }
+#chx .tel-fo{ margin-top:clamp(40px,5vw,72px); display:flex; flex-direction:column; gap:18px; }
+#chx .tel-fo__media{ aspect-ratio:21/9; overflow:hidden; }
+#chx .tel-fo__media img{ object-position:50% 55%; }
+#chx .tel-fo__txt{ display:flex; flex-direction:column; gap:10px; max-width:52ch; }
+@media (max-width:860px){
+#chx .tel-fo__media{ aspect-ratio:4/3; }
+#chx .eyebrow--center{ justify-content:flex-start; }
+}
 
 #chx{ position:relative; font-family:var(--ff); color:var(--ink); line-height:1.6;
       -webkit-font-smoothing:antialiased; }
@@ -237,7 +242,7 @@
 
 <script>
 /* ============================================================
-   Chalet in Tirol — görgetéssel vezérelt videós hero
+   Chalet Salzburg — görgetéssel vezérelt videós hero
    ------------------------------------------------------------
    A videó soha nem indul el magától: az aktuális időpontját
    kizárólag a görgetési pozíció határozza meg — lefelé előre,

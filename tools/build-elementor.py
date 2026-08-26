@@ -18,7 +18,9 @@ IDS = ['loader', 'loaderFill', 'nav', 'menu', 'burger', 'hero', 'stage', 'video'
 
 # oldalszintű szabályok, amiknek a widgetben nincs helyük
 DROP_PREFIX = ('.wrap', '.sec', '.foot', '.placeholder', '.skip-link',
-               '.parallax-hero', '.btn--dark', '.eyebrow--dark')
+               '.parallax-hero', '.btn--dark', '.btn--outline', '.eyebrow--dark',
+               '.rev', '.duo', '.split', '.gastro', '.kartya', '.tenyek',
+               '.kapcsolat', 'figure')
 DROP_EXACT = ('html', 'body', 'img,video', 'a', 'ul', 'h1,h2,h3,p', 'button', ':focus-visible')
 
 
