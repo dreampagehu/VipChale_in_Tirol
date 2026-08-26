@@ -1,0 +1,19 @@
+# rendszer
+.DS_Store
+Thumbs.db
+
+# szerkesztők
+.vscode/
+.idea/
+*.swp
+
+# függőségek, build
+node_modules/
+dist/
+.cache/
+
+# ideiglenes
+*.log
+*.zip
+.env
+.env.local
