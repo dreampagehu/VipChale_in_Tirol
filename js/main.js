@@ -96,7 +96,8 @@
     var webp = u.replace(/\.jpg$/, '.webp');
     poster.style.backgroundImage = 'image-set(url("' + webp + '") type("image/webp"), url("' + u + '"))';
     if (!poster.style.backgroundImage) poster.style.backgroundImage = 'url("' + u + '")';
-    video.setAttribute('poster', u);
+    /* a videóelemre nem teszünk poster attribútumot: a mögötte lévő
+       .hero__poster réteg úgyis ezt mutatja, így nem töltjük le kétszer */
   }
   applyPoster();
 
