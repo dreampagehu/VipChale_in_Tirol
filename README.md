@@ -18,10 +18,10 @@ js/main.js              a görgetésmotor
 elementor-hero.html     egyfájlos, beilleszthető változat Elementor HTML widgetbe
 tools/build-elementor.py   az elementor-hero.html előállítása a fenti háromból
 assets/
-  chalet-hero-eredeti.mp4  az eredeti, változatlan videó (1280×720, 8 s, 24 fps)
-  chalet-hero-1080.mp4     1920×1080, lanczos + finom élesítés — 6,3 MB (nagy képernyő)
-  chalet-hero.mp4          1280×720 — 3,3 MB (közepes képernyő, lassú net)
-  chalet-hero-portre.mp4    720×1280, középre vágott 9:16 — 2,9 MB (álló telefon)
+  chalet-hero-eredeti.mp4  az eredeti, változatlan videó (1920×1080, 8 s, 24 fps)
+  chalet-hero-1080.mp4     1920×1080 — 7,7 MB (nagy képernyő)
+  chalet-hero.mp4          1280×720 — 3,8 MB (közepes képernyő, lassú net)
+  chalet-hero-portre.mp4    720×1280, középre vágott 9:16 — 3,0 MB (álló telefon)
   chalet-poster.jpg        poszter 1920×1080
   chalet-poster-portre.jpg poszter álló telefonra 720×1280
   chalet-belso.jpg         a záró képkocka (belső tér)
@@ -103,28 +103,27 @@ használjuk. iOS-en az első felhasználói interakcióra egyetlen `play()` + az
 Az eredeti fájlban egyetlen kulcsképkocka volt, ami akadóvá tenné a tekerést —
 minden változatban 6–8 képkockánként van kulcsképkocka, hang nélkül.
 
-A forrás 1280×720, ezért a nagy változat felskálázott: lanczos átméretezés és
-finom élesítés, ami láthatóan tisztább, mint amikor a böngésző nyújtja fel a
-720p-t. Az álló telefonos változat nem felskálázás, hanem a képkocka középső
-9:16-os részének kivágása — így a telefon nem 4–5-szörös, csak kb. kétszeres
-nagyítással jeleníti meg.
+A forrás natív 1920×1080, tehát sehol nincs felskálázás. A közepes és az álló
+változat is ebből kicsinyítve készül. Az álló telefonos fájl a képkocka középső
+9:16-os részének kivágása — pontosan az a képrész, amit a telefon `object-fit:
+cover` mellett amúgy is mutatna, csak nem 4–5-szörös, hanem kb. kétszeres
+nagyítással.
 
 ```bash
 # nagy képernyő — 1920×1080
-ffmpeg -i assets/chalet-hero-eredeti.mp4 -an \
-  -vf "scale=1920:1080:flags=lanczos,unsharp=5:5:0.85:5:5:0.0" \
-  -c:v libx264 -preset slow -crf 22 -g 8 -keyint_min 8 -sc_threshold 0 \
-  -pix_fmt yuv420p -movflags +faststart assets/chalet-hero-1080.mp4
+ffmpeg -i assets/chalet-hero-eredeti.mp4 -an -c:v libx264 -preset slow -crf 23 \
+  -g 8 -keyint_min 8 -sc_threshold 0 -pix_fmt yuv420p -movflags +faststart \
+  assets/chalet-hero-1080.mp4
 
 # közepes képernyő — 1280×720
-ffmpeg -i assets/chalet-hero-eredeti.mp4 -an -c:v libx264 -preset slow -crf 22 \
-  -g 6 -keyint_min 6 -sc_threshold 0 -pix_fmt yuv420p -movflags +faststart \
-  assets/chalet-hero.mp4
+ffmpeg -i assets/chalet-hero-eredeti.mp4 -an -vf "scale=1280:720:flags=lanczos" \
+  -c:v libx264 -preset slow -crf 24 -g 6 -keyint_min 6 -sc_threshold 0 \
+  -pix_fmt yuv420p -movflags +faststart assets/chalet-hero.mp4
 
 # álló telefon — 720×1280, középre vágva
 ffmpeg -i assets/chalet-hero-eredeti.mp4 -an \
-  -vf "crop=406:720:437:0,scale=720:1280:flags=lanczos,unsharp=5:5:0.8:5:5:0.0" \
-  -c:v libx264 -preset slow -crf 21 -g 6 -keyint_min 6 -sc_threshold 0 \
+  -vf "crop=608:1080:656:0,scale=720:1280:flags=lanczos" \
+  -c:v libx264 -preset slow -crf 23 -g 6 -keyint_min 6 -sc_threshold 0 \
   -pix_fmt yuv420p -movflags +faststart assets/chalet-hero-portre.mp4
 ```
 
@@ -146,13 +145,33 @@ pozíciót megtartva.
 - A scroll listener `passive: true`, a ciklus `IntersectionObserver`-rel áll le,
   ha a hero nem látszik; a resize debounce-olt, orientációváltásra újramérünk.
 
-## Helyi futtatás
+## Kiszolgálás — fontos
+
+A görgetéses tekerés **HTTP Range kéréseket** igényel. Ha a szerver nem küld
+`Accept-Ranges: bytes` fejlécet, a böngésző a videót nem tekerhetőnek jelöli
+(`video.seekable` üres), és a `currentTime` beállítása egyszerűen nem történik
+meg — a videó az első képkockán ragad. Apache, nginx, GitHub Pages és a
+WordPress alapértelmezett kiszolgálása tudja; egyes CDN- és cache-beállítások
+viszont elronthatják.
+
+Gyors ellenőrzés:
 
 ```bash
-python3 -m http.server 8000
+curl -sI -H "Range: bytes=0-99" https://a-te-oldalad.hu/.../chalet-hero-1080.mp4 | head -3
 ```
 
-Böngészőben: <http://localhost:8000> — ne `file://` protokollal nyisd meg.
+A válasznak `206 Partial Content`-nek kell lennie.
+
+## Helyi futtatás
+
+A beépített `python3 -m http.server` **nem** tud Range kérést kiszolgálni, ezért
+azzal a tekerés nem működik. Használj Range-képes szervert, például:
+
+```bash
+npx serve .
+```
+
+Böngészőben: <http://localhost:3000> — ne `file://` protokollal nyisd meg.
 
 ## Az Elementor változat újraépítése
 
