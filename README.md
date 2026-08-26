@@ -19,9 +19,9 @@ elementor-hero.html     egyfájlos, beilleszthető változat Elementor HTML widg
 tools/build-elementor.py   az elementor-hero.html előállítása a fenti háromból
 assets/
   chalet-hero-eredeti.mp4  az eredeti, változatlan videó (1920×1080, 8 s, 24 fps)
-  chalet-hero-1080.mp4     1920×1080 — 7,7 MB (nagy képernyő)
-  chalet-hero.mp4          1280×720 — 3,8 MB (közepes képernyő, lassú net)
-  chalet-hero-portre.mp4    720×1280, középre vágott 9:16 — 3,0 MB (álló telefon)
+  chalet-hero-1080.mp4     1920×1080 — 5,3 MB (nagy képernyő)
+  chalet-hero.mp4          1280×720 — 2,7 MB (közepes képernyő, lassú net)
+  chalet-hero-portre.mp4    720×1280, középre vágott 9:16 — 2,4 MB (álló telefon)
   chalet-poster.jpg        poszter 1920×1080
   chalet-poster-portre.jpg poszter álló telefonra 720×1280
   chalet-belso.jpg         a záró képkocka (belső tér)
@@ -145,27 +145,38 @@ pozíciót megtartva.
 - A scroll listener `passive: true`, a ciklus `IntersectionObserver`-rel áll le,
   ha a hero nem látszik; a resize debounce-olt, orientációváltásra újramérünk.
 
-## Kiszolgálás — fontos
+## Miért nem akadozik
 
-A görgetéses tekerés **HTTP Range kéréseket** igényel. Ha a szerver nem küld
-`Accept-Ranges: bytes` fejlécet, a böngésző a videót nem tekerhetőnek jelöli
-(`video.seekable` üres), és a `currentTime` beállítása egyszerűen nem történik
-meg — a videó az első képkockán ragad. Apache, nginx, GitHub Pages és a
-WordPress alapértelmezett kiszolgálása tudja; egyes CDN- és cache-beállítások
-viszont elronthatják.
+A görgetéses tekerés legnagyobb ellensége a hálózat: ha a videó még csak
+részben van letöltve, minden olyan ugrás, ami a puffer elé esik, új
+byte-tartomány-kérést indít. Mérve ugyanaz a fájl **155 ms**-ig keresett a
+hálózatról és **6 ms**-ig a memóriából.
 
-Gyors ellenőrzés:
+Ezért a hero a videót először egyben letölti (`fetch`, valódi százalékos
+töltésjelzővel), Blobból játssza le, és csak utána engedi el a görgetést. Innentől
+minden keresés helyi művelet.
+
+Ha a letöltés nem sikerül (más domainen fekvő fájl CORS fejléc nélkül, régi
+böngésző, 25 mp-es időkorlát), a kód automatikusan visszaesik a hagyományos,
+folyamatos betöltésre — ilyenkor a tekerés akadozhat, de az oldal működik.
+
+Ebből következik két dolog a kiszolgálásra:
+
+- **A videó lehetőleg legyen ugyanazon a domainen**, vagy a CDN küldjön
+  `Access-Control-Allow-Origin` fejlécet — különben a `fetch` nem használható.
+- A tartalék útvonalhoz kell a **HTTP Range** támogatás (`Accept-Ranges: bytes`).
+  Apache, nginx, GitHub Pages és a WordPress alapból tudja:
 
 ```bash
 curl -sI -H "Range: bytes=0-99" https://a-te-oldalad.hu/.../chalet-hero-1080.mp4 | head -3
 ```
 
-A válasznak `206 Partial Content`-nek kell lennie.
+A válasz `206 Partial Content` legyen.
 
 ## Helyi futtatás
 
-A beépített `python3 -m http.server` **nem** tud Range kérést kiszolgálni, ezért
-azzal a tekerés nem működik. Használj Range-képes szervert, például:
+A beépített `python3 -m http.server` nem tud Range kérést kiszolgálni; a Blobos
+út emiatt működik ugyan, de a tartalék nem tesztelhető vele. Range-képes szerver:
 
 ```bash
 npx serve .

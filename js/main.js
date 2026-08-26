@@ -19,6 +19,8 @@
   /* ══════════════════════════════════════════════════════ */
 
   var MOBILE_BP = 860;          /* px — eddig számít mobilnak */
+  var FPS       = 24;           /* a videó képkockasebessége — a keresés erre igazodik */
+  var DL_TIMEOUT = 25000;       /* ms — ennyi után feladjuk a teljes letöltést */
   var TAU       = 70;           /* ms — a görgetéskövetés simasága (kisebb = közvetlenebb) */
   var SEEK_TIMEOUT = 700;       /* ms — ennyi után tekintjük elakadtnak egy keresést */
   var MAX_STALLS   = 4;         /* ennyi elakadás után mobilon tartalékra váltunk */
@@ -209,8 +211,56 @@
 
   /* ═══════════════ VIDEÓ ═══════════════ */
   var isMobile = Math.min(window.innerWidth || 9999, (window.screen && window.screen.width) || 9999) <= MOBILE_BP;
-  var currentSrc = pickVideo();
-  video.src = currentSrc;
+  var currentSrc = '';
+  var objectUrl = null;
+
+  /* A videót egyben letöltjük a memóriába, és onnan játsszuk le. Így a
+     görgetés közbeni keresés soha nem vár hálózatra: a részben letöltött
+     fájlban való ugrálás az, ami akadozást okoz. Ha a letöltés nem megy
+     (CORS, régi böngésző), visszaesünk a hagyományos, folyamatos módra. */
+  function fetchToBlob(url, done) {
+    if (!window.fetch || !window.URL || !URL.createObjectURL) return done(null);
+    var ctrl = ('AbortController' in window) ? new AbortController() : null;
+    var to = window.setTimeout(function () { if (ctrl) ctrl.abort(); }, DL_TIMEOUT);
+    var opts = ctrl ? { signal: ctrl.signal, credentials: 'same-origin' } : undefined;
+
+    window.fetch(url, opts).then(function (r) {
+      if (!r.ok) throw new Error('http ' + r.status);
+      var total = parseInt(r.headers.get('Content-Length') || '0', 10);
+      if (!r.body || !r.body.getReader) return r.blob();
+      var reader = r.body.getReader(), chunks = [], got = 0;
+      return (function pump() {
+        return reader.read().then(function (res) {
+          if (res.done) return new Blob(chunks, { type: 'video/mp4' });
+          chunks.push(res.value);
+          got += res.value.length;
+          if (total && lFill) lFill.style.width = Math.min(99, Math.round(got / total * 100)) + '%';
+          return pump();
+        });
+      })();
+    }).then(function (blob) {
+      window.clearTimeout(to);
+      done(URL.createObjectURL(blob));
+    }).catch(function () {
+      window.clearTimeout(to);
+      done(null);
+    });
+  }
+
+  function loadSource(url) {
+    currentSrc = url;
+    metaOK = false; frameOK = false; started = false; seeking = false; stalls = 0;
+    if (objectUrl) { URL.revokeObjectURL(objectUrl); objectUrl = null; }
+    fetchToBlob(url, function (blobUrl) {
+      if (currentSrc !== url) {                 /* közben forrást váltottunk */
+        if (blobUrl) URL.revokeObjectURL(blobUrl);
+        return;
+      }
+      objectUrl = blobUrl;
+      video.src = blobUrl || url;
+      video.load();
+    });
+  }
 
   /* elforgatáskor / méretváltáskor a megfelelő felbontásra váltunk,
      a görgetési pozíciót megtartva */
@@ -218,13 +268,11 @@
     if (mode !== 'video') return;
     var want = pickVideo();
     if (want === currentSrc) return;
-    currentSrc = want;
-    metaOK = false; frameOK = false; started = false; seeking = false; stalls = 0;
     applyPoster();
     poster.style.opacity = '1';
     video.classList.remove('is-live');
-    video.src = want;
-    video.load();
+    if (lFill) lFill.style.width = '0%';
+    loadSource(want);
   }
 
   var dur = 0, metaOK = false, frameOK = false, started = false;
@@ -252,9 +300,9 @@
 
   video.addEventListener('canplay', function () { if (lFill) lFill.style.width = '100%'; });
   video.addEventListener('error', function () { goStatic(false); });
-  window.setTimeout(function () {                  /* ha 15 mp alatt sincs kép, tartalék */
+  window.setTimeout(function () {           /* ha eddig egy kép sincs, tartalékra váltunk */
     if (!frameOK && mode === 'video') goStatic(isMobile);
-  }, 15000);
+  }, DL_TIMEOUT + 8000);
 
   video.addEventListener('seeked', function () {
     seeking = false; stalls = 0;
@@ -298,7 +346,8 @@
       if (stalls >= MAX_STALLS && isMobile) { goStatic(true); return; }
     }
     var t = clamp(wanted, 0, Math.max(0, dur - 0.04));
-    if (Math.abs(video.currentTime - t) < 0.02) return;
+    t = Math.round(t * FPS) / FPS;              /* a képkockák rácsára igazítva */
+    if (Math.abs(video.currentTime - t) < 0.5 / FPS) return;   /* ugyanaz a képkocka */
     seeking = true; seekAt = Date.now();
     try {
       if (video.fastSeek) video.fastSeek(t); else video.currentTime = t;
@@ -356,6 +405,6 @@
   /* indulás */
   measure();
   layers(progress());
-  video.load();
+  loadSource(pickVideo());
 
 })();
