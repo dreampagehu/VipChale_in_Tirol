@@ -19,7 +19,9 @@ index.html              a teljes oldal (navigáció, hero, tartalmi szekciók)
 css/style.css           designrendszer, hero-állapotok és a szekciók
 js/main.js              a hero görgetésmotorja
 js/kepek.js             képjegyzék: minden stockfotó forrása egy helyen
-js/szekciok.js          felfedő animációk és a gasztronómiai sticky galéria
+js/szekciok.js          felfedő animációk, GYIK és a gasztronómiai sticky galéria
+js/foglaltsag.js        foglaltsági naptár (érkezés–távozás kijelölés)
+assets/foglaltsag.json  a foglalt időszakok — ezt szerkeszted
 elementor-hero.html     egyfájlos, beilleszthető változat Elementor HTML widgetbe
 tools/build-elementor.py   az elementor-hero.html előállítása a fenti háromból
 assets/
@@ -246,3 +248,32 @@ A stockfotók **vizuális koncepciót** mutatnak, nem a szálláshely saját
 felvételei. Az oldal lábléce ezt ki is mondja. Publikálás előtt minden fotót és
 minden szolgáltatási állítást valódi, ellenőrzött tartalomra kell cserélni vagy
 jóvá kell hagyatni.
+
+
+## Foglaltsági naptár
+
+A `#foglaltsag` szekcióban saját naptár mutatja, mikor szabad a chalet. A vendég
+kijelöli az érkezés és a távozás napját, az időszak pedig átkerül az
+ajánlatkérő űrlap `mezoErkezes` / `mezoTavozas` mezőibe.
+
+A foglalt időszakokat az **`assets/foglaltsag.json`** tartalmazza:
+
+```json
+{
+  "minEjszaka": 2,
+  "foglalt": [
+    { "tol": "2026-09-04", "ig": "2026-09-08", "cimke": "Foglalt" }
+  ]
+}
+```
+
+- `tol` és `ig` **is foglalt napnak számít**
+- `minEjszaka`: ennél rövidebb időszak nem jelölhető ki
+- `cimke`: a naptárban tooltipként jelenik meg
+
+A naptár magától kezeli: a múltbeli napokat letiltja, a foglalt napokat áthúzva
+és kattinthatatlanul mutatja, és visszautasítja azt a kijelölést, amely foglalt
+napon nyúlik át. Asztali nézetben két hónapot mutat, mobilon egyet.
+
+Ha később külső foglalórendszert (Lodgify, Smoobu, Fluent Booking) használsz,
+elég a JSON-t abból generálni — a naptár kódja változatlan maradhat.
