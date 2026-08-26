@@ -74,6 +74,34 @@
     mrt = window.setTimeout(mobilKepek, 200);
   }, { passive: true });
 
+  /* ── 3/b. GYIK: egyszerre csak egy nyitott kérdés ── */
+  var kerdesek = document.querySelectorAll('.kerdes');
+  for (var q = 0; q < kerdesek.length; q++) {
+    kerdesek[q].addEventListener('toggle', function () {
+      if (!this.open) return;
+      for (var w = 0; w < kerdesek.length; w++) {
+        if (kerdesek[w] !== this) kerdesek[w].open = false;
+      }
+    });
+  }
+
+  /* ── 3/c. ajánlatkérő űrlap (előnézet) ──
+     Éles oldalon a Fluent Forms veszi át: a <form> blokk helyére
+     [fluentform id="..."] shortcode kerül, és ez a kód nem fut le. */
+  var urlap = document.getElementById('ajanlatUrlap');
+  var info = document.getElementById('urlapInfo');
+  if (urlap && info) {
+    urlap.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!urlap.checkValidity()) {
+        info.textContent = 'Kérjük, töltse ki a kötelező mezőket (név, e-mail, adatkezelés).';
+        urlap.reportValidity();
+        return;
+      }
+      info.textContent = 'Előnézet: az adatok nem kerültek elküldésre. Éles oldalon a Fluent Forms továbbítja őket.';
+    });
+  }
+
   /* ── 4. finom parallax a sticky képen ── */
   if (!reduce && media) {
     var szekcio = document.getElementById('gasztronomia');

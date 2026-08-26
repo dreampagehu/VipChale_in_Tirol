@@ -9,24 +9,24 @@
 
 <header class="nav" id="chx-nav">
   <div class="nav__in">
-    <a class="brand" href="#" aria-label="Chalet Salzburg – kezdőlap">
+    <a class="brand" href="#" aria-label="Chalet Salzburg – vissza a lap tetejére">
       <span class="brand__mark" aria-hidden="true"></span>
       <span class="brand__txt"><strong>CHALET</strong><em>Salzburg</em></span>
     </a>
 
     <nav class="menu" id="chx-menu" aria-label="Fő navigáció">
       <ul class="menu__list">
-        <li><a href="#hotel">A hotel</a></li>
-        <li><a href="#szobak">Szobák</a></li>
-        <li><a href="#gasztronomia">Gasztronómia</a></li>
-        <li><a href="#nyar">Nyár</a></li>
-        <li><a href="#tel">Tél</a></li>
+        <li><a href="#rolunk">Rólunk</a></li>
+        <li><a href="#szolgaltatasok">Szolgáltatások</a></li>
+        <li><a href="#folyamat">Folyamat</a></li>
+        <li><a href="#referenciak">Referenciák</a></li>
+        <li><a href="#gyik">GYIK</a></li>
         <li><a href="#kapcsolat">Kapcsolat</a></li>
       </ul>
-      <a class="btn btn--solid menu__cta" href="#kapcsolat">Foglalás</a>
+      <a class="btn btn--solid menu__cta" href="#kapcsolat">Ajánlatot kérek</a>
     </nav>
 
-    <a class="btn btn--solid nav__cta" href="#kapcsolat">Foglalás</a>
+    <a class="btn btn--solid nav__cta" href="#kapcsolat">Ajánlatot kérek</a>
 
     <button class="burger" id="chx-burger" type="button" aria-label="Menü megnyitása" aria-expanded="false" aria-controls="chx-menu">
       <span aria-hidden="true"></span><span aria-hidden="true"></span>
@@ -57,20 +57,20 @@
     <div class="hero__ui">
 
       <div class="layer layer--intro" id="chx-lyIntro">
-        <p class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span>Prémium alpesi pihenés</p>
-        <h1 class="display">A hegyek csendje.<br><span class="display__soft">Az Ön pillanata.</span></h1>
-        <p class="lead">Kortárs kényelem és valódi alpesi nyugalom a salzburgi hegyek lenyűgöző világában.</p>
+        <p class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span>Prémium alpesi chalet · Salzburger Land</p>
+        <h1 class="display">Egész chalet,<br><span class="display__soft">csak az Ön társaságának.</span></h1>
+        <p class="lead">Pároknak, családoknak és baráti társaságoknak kínálunk privát alpesi chaletet szállással, reggelivel és à la carte vacsorával, valamint nyári és téli programszervezéssel — átlátható csomagokkal és személyes egyeztetéssel.</p>
         <div class="ctarow">
-          <a class="btn btn--solid btn--lg" href="#hotel">Fedezze fel a hotelt</a>
-          <a class="btn btn--ghost btn--lg" href="#szobak">Szobák és lakosztályok</a>
+          <a class="btn btn--solid btn--lg" href="#kapcsolat">Ajánlatot kérek</a>
+          <a class="btn btn--ghost btn--lg" href="#referenciak">Megnézem a chaletet</a>
         </div>
       </div>
 
       <div class="layer layer--arrive" id="chx-lyArrive">
         <p class="eyebrow eyebrow--center"><span class="eyebrow__rule" aria-hidden="true"></span>Üdvözöljük</p>
         <h2 class="display display--md">Megérkezett.</h2>
-        <p class="lead lead--center">Fedezze fel a szobákat, a gasztronómiát és a hegyek természetes nyugalmát.</p>
-        <a class="btn btn--solid btn--lg" href="#hotel" id="chx-enterBtn">Belépek</a>
+        <p class="lead lead--center">Nézze meg a szolgáltatásokat, a folyamatot és a csomagokat — vagy kérjen ajánlatot néhány sorban.</p>
+        <a class="btn btn--solid btn--lg" href="#rolunk" id="chx-enterBtn">Belépek</a>
       </div>
 
     </div>
@@ -223,6 +223,119 @@
 @media (max-width:860px){
 #chx .tel-fo__media{ aspect-ratio:4/3; }
 #chx .eyebrow--center{ justify-content:flex-start; }
+}
+#chx .jelolo{ display:inline-block; vertical-align:middle; font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; font-weight:500; color:var(--bronze); border:1px solid rgba(143,112,72,.42); padding:3px 8px; border-radius:2px; margin-right:8px; }
+#chx .bizalom{ background:var(--forest); color:var(--sand); padding:clamp(26px,3.4vw,40px) 0; }
+#chx .bizalom__lista{ display:grid; gap:clamp(18px,3vw,44px); grid-template-columns:repeat(4,1fr); }
+#chx .bizalom__lista li{ display:flex; flex-direction:column; gap:5px; }
+#chx .bizalom__lista b{ font-family:var(--ff-d); font-weight:400; font-size:clamp(1.05rem,1.5vw,1.35rem); letter-spacing:-.005em; }
+#chx .bizalom__lista span{ font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:rgba(245,241,234,.62); }
+#chx .problema{ margin-top:clamp(30px,4vw,52px); display:grid; gap:clamp(24px,3.4vw,56px); grid-template-columns:1.15fr .85fr; align-items:start; }
+#chx .problema__lista{ display:flex; flex-direction:column; gap:clamp(14px,1.8vw,22px); }
+#chx .problema__lista li{ padding-left:26px; position:relative; font-size:1rem; font-weight:300; color:var(--stone); line-height:1.65; }
+#chx .problema__lista li::before{ content:""; position:absolute; left:0; top:.62em; width:10px; height:1px; background:var(--bronze); }
+#chx .problema__lista b{ color:var(--ink); font-weight:500; }
+#chx .problema__megoldas{ background:var(--beige); padding:clamp(24px,3vw,38px); display:flex; flex-direction:column; gap:16px; align-items:flex-start; }
+#chx .problema__szoveg{ font-size:1rem; font-weight:300; line-height:1.7; color:var(--ink); }
+#chx .problema__szoveg b{ font-weight:500; }
+#chx .szolgak{ margin-top:clamp(40px,5vw,72px); display:grid; gap:clamp(18px,2.4vw,34px); grid-template-columns:repeat(2,1fr); }
+#chx .szolg{ background:var(--sand); display:flex; flex-direction:column; }
+#chx .szolg__media{ aspect-ratio:3/2; overflow:hidden; }
+#chx .szolg__media img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform 1.4s var(--ease); }
+#chx .szolg:hover .szolg__media img{ transform:scale(1.03); }
+#chx .szolg__txt{ padding:clamp(22px,2.6vw,34px); display:flex; flex-direction:column; gap:12px; flex:1; }
+#chx .szolg__title{ font-family:var(--ff-d); font-weight:400; font-size:clamp(1.25rem,1.9vw,1.65rem); letter-spacing:-.01em; }
+#chx .szolg__leiras{ font-size:.98rem; font-weight:300; color:var(--stone); line-height:1.65; }
+#chx .szolg__elony{ font-size:.94rem; color:var(--ink); border-top:1px solid rgba(35,36,31,.12); padding-top:12px; margin-top:auto; }
+#chx .szolg__elony span{ font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--bronze); display:block; margin-bottom:5px; }
+#chx .szolg__cta{ font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink); display:inline-flex; align-items:center; gap:8px; padding-top:4px; border-bottom:1px solid rgba(35,36,31,.25); align-self:flex-start; transition:border-color .3s var(--ease), gap .3s var(--ease); }
+#chx .szolg__cta:hover{ border-color:var(--ink); gap:12px; }
+#chx .lepesek{ margin-top:clamp(40px,5vw,72px); display:grid; gap:clamp(20px,2.6vw,36px); grid-template-columns:repeat(4,1fr); counter-reset:lepes; }
+#chx .lepes{ display:flex; flex-direction:column; gap:12px; border-top:1px solid rgba(35,36,31,.18); padding-top:20px; }
+#chx .lepes__szam{ font-family:var(--ff-d); font-size:clamp(1.6rem,2.6vw,2.3rem); color:var(--bronze); line-height:1; }
+#chx .lepes__cim{ font-size:1.02rem; font-weight:500; letter-spacing:-.005em; }
+#chx .lepes__txt{ font-size:.95rem; font-weight:300; color:var(--stone); line-height:1.65; }
+#chx .miert{ display:grid; gap:clamp(30px,4vw,70px); grid-template-columns:.9fr 1.1fr; align-items:center; }
+#chx .miert__bal{ display:flex; flex-direction:column; gap:clamp(18px,2.4vw,28px); align-items:flex-start; }
+#chx .miert__kep{ width:100%; aspect-ratio:4/3; overflow:hidden; }
+#chx .miert__kep img{ width:100%; height:100%; object-fit:cover; object-position:50% 48%; display:block; }
+#chx .miert__lista{ display:flex; flex-direction:column; gap:clamp(14px,1.8vw,20px); }
+#chx .miert__lista li{ position:relative; padding-left:34px; font-size:clamp(1rem,1.15vw,1.12rem); font-weight:300; line-height:1.65; color:rgba(245,241,234,.88); border-bottom:1px solid rgba(245,241,234,.12); padding-bottom:clamp(14px,1.8vw,20px); }
+#chx .miert__lista li:last-child{ border-bottom:0; }
+#chx .miert__lista li::before{ content:""; position:absolute; left:0; top:.55em; width:16px; height:6px; border-left:1px solid var(--wood); border-bottom:1px solid var(--wood); transform:rotate(-45deg); }
+#chx .refek{ margin-top:clamp(40px,5vw,72px); display:grid; gap:clamp(18px,2.4vw,34px); grid-template-columns:repeat(3,1fr); }
+#chx .ref{ display:flex; flex-direction:column; gap:14px; }
+#chx .ref__media{ aspect-ratio:4/3; overflow:hidden; }
+#chx .ref__media img{ width:100%; height:100%; object-fit:cover; display:block; }
+#chx .ref__cim{ font-family:var(--ff-d); font-weight:400; font-size:clamp(1.15rem,1.6vw,1.4rem); }
+#chx .ref__adatok{ display:grid; grid-template-columns:auto; gap:10px; margin:0; }
+#chx .ref__adatok dt{ font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--bronze); }
+#chx .ref__adatok dd{ margin:0 0 4px; font-size:.95rem; font-weight:300; color:var(--stone); line-height:1.6; }
+#chx .velemenyek{ margin-top:clamp(40px,5vw,72px); display:grid; gap:clamp(18px,2.4vw,34px); grid-template-columns:repeat(3,1fr); }
+#chx .velemeny{ background:var(--sand); padding:clamp(24px,2.8vw,38px); display:flex; flex-direction:column; gap:18px; }
+#chx .velemeny blockquote{ margin:0; font-family:var(--ff-d); font-weight:300; font-size:clamp(1.05rem,1.35vw,1.24rem); line-height:1.5; color:var(--ink); }
+#chx .velemeny__ki{ font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--stone); margin-top:auto; }
+#chx .csomagok{ margin-top:clamp(40px,5vw,72px); display:grid; gap:clamp(18px,2.4vw,30px); grid-template-columns:repeat(3,1fr); align-items:stretch; }
+#chx .csomag{ position:relative; background:var(--sand-2); padding:clamp(26px,3vw,40px); display:flex; flex-direction:column; gap:14px; border:1px solid transparent; }
+#chx .csomag--kiemelt{ background:var(--beige); border-color:rgba(143,112,72,.34); }
+#chx .csomag__cimke{ position:absolute; top:-11px; left:clamp(26px,3vw,40px); background:var(--forest); color:var(--sand); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; padding:5px 12px; border-radius:2px; }
+#chx .csomag__nev{ font-family:var(--ff-d); font-weight:400; font-size:clamp(1.4rem,2.1vw,1.85rem); }
+#chx .csomag__kinek{ font-size:.94rem; font-weight:300; color:var(--stone); }
+#chx .csomag__ar{ font-family:var(--ff-d); font-size:clamp(1.5rem,2.2vw,2rem); color:var(--ink); border-top:1px solid rgba(35,36,31,.14); border-bottom:1px solid rgba(35,36,31,.14); padding:16px 0; margin:4px 0; }
+#chx .csomag__ar span{ display:block; font-family:var(--ff); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--stone); margin-bottom:4px; }
+#chx .csomag__lista{ display:flex; flex-direction:column; gap:10px; margin-bottom:8px; }
+#chx .csomag__lista li{ position:relative; padding-left:20px; font-size:.95rem; font-weight:300; color:var(--stone); line-height:1.55; }
+#chx .csomag__lista li::before{ content:""; position:absolute; left:0; top:.55em; width:9px; height:1px; background:var(--bronze); }
+#chx .csomag .btn{ margin-top:auto; width:100%; }
+#chx .gyik{ display:grid; gap:clamp(24px,4vw,70px); grid-template-columns:.8fr 1.2fr; align-items:start; }
+#chx .gyik__lista{ display:flex; flex-direction:column; }
+#chx .kerdes{ border-top:1px solid rgba(35,36,31,.16); }
+#chx .kerdes:last-child{ border-bottom:1px solid rgba(35,36,31,.16); }
+#chx .kerdes summary{ cursor:pointer; list-style:none; padding:clamp(16px,2vw,22px) 40px clamp(16px,2vw,22px) 0; font-size:clamp(1rem,1.2vw,1.12rem); font-weight:400; color:var(--ink); position:relative; transition:color .3s var(--ease); }
+#chx .kerdes summary::-webkit-details-marker{ display:none; }
+#chx .kerdes summary::after{ content:""; position:absolute; right:6px; top:50%; width:11px; height:11px; border-right:1px solid var(--stone); border-bottom:1px solid var(--stone); transform:translateY(-70%) rotate(45deg); transition:transform .35s var(--ease); }
+#chx .kerdes[open] summary::after{ transform:translateY(-30%) rotate(-135deg); }
+#chx .kerdes summary:hover{ color:var(--bronze); }
+#chx .kerdes p{ padding:0 40px clamp(18px,2.2vw,26px) 0; font-size:.98rem; font-weight:300; color:var(--stone); line-height:1.7; max-width:62ch; }
+#chx .kerdes a{ border-bottom:1px solid rgba(35,36,31,.3); }
+#chx .elerhetoseg{ display:grid; grid-template-columns:auto 1fr; gap:10px clamp(16px,2vw,28px); margin:0; width:100%; }
+#chx .elerhetoseg dt{ font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--stone); padding-top:3px; }
+#chx .elerhetoseg dd{ margin:0; font-size:1rem; font-weight:300; }
+#chx .elerhetoseg a{ border-bottom:1px solid rgba(35,36,31,.25); }
+#chx .terkep{ width:100%; aspect-ratio:16/9; background:var(--beige); border:1px dashed rgba(35,36,31,.2); display:grid; place-items:center; }
+#chx .terkep span{ font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--stone); }
+#chx .urlap{ background:var(--sand); padding:clamp(24px,3vw,40px); display:flex; flex-direction:column; gap:16px; border:1px solid rgba(35,36,31,.10); }
+#chx .urlap__cim{ font-family:var(--ff-d); font-size:clamp(1.3rem,1.9vw,1.7rem); font-weight:400; margin-bottom:4px; }
+#chx .mezo{ display:flex; flex-direction:column; gap:7px; }
+#chx .mezo__cimke{ font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--stone); }
+#chx .mezo__cimke i{ font-style:normal; color:var(--bronze); }
+#chx .mezo input,#chx .mezo select,#chx .mezo textarea{ font:inherit; font-size:1rem; font-weight:300; color:var(--ink); background:var(--sand-2); border:1px solid rgba(35,36,31,.14); border-radius:2px; padding:13px 14px; width:100%; transition:border-color .3s var(--ease), background .3s var(--ease); }
+#chx .mezo textarea{ resize:vertical; min-height:110px; }
+#chx .mezo input:focus,#chx .mezo select:focus,#chx .mezo textarea:focus{ outline:none; border-color:var(--bronze); background:#fff; }
+#chx .mezo-par{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+#chx .mezo--jelolo{ flex-direction:row; align-items:flex-start; gap:11px; font-size:.9rem; color:var(--stone); font-weight:300; }
+#chx .mezo--jelolo input{ width:auto; margin-top:3px; accent-color:var(--forest); }
+#chx .mezo--jelolo a{ border-bottom:1px solid rgba(35,36,31,.3); }
+#chx .urlap__kuld{ margin-top:6px; }
+#chx .urlap__info{ font-size:11px; letter-spacing:.05em; color:var(--stone); }
+#chx .brand--foot{ color:var(--ink); margin-right:0; }
+@media (max-width:1080px){
+#chx .bizalom__lista{ grid-template-columns:repeat(2,1fr); }
+#chx .lepesek{ grid-template-columns:repeat(2,1fr); }
+#chx .refek,#chx .velemenyek,#chx .csomagok{ grid-template-columns:1fr; }
+}
+@media (max-width:860px){
+#chx .problema{ grid-template-columns:1fr; }
+#chx .szolgak{ grid-template-columns:1fr; }
+#chx .miert{ grid-template-columns:1fr; }
+#chx .gyik{ grid-template-columns:1fr; }
+#chx .mezo-par{ grid-template-columns:1fr; }
+#chx .szolg__media{ aspect-ratio:4/3; }
+#chx .ref__media{ aspect-ratio:3/2; }
+}
+@media (max-width:520px){
+#chx .bizalom__lista{ grid-template-columns:1fr; gap:16px; }
+#chx .lepesek{ grid-template-columns:1fr; }
 }
 
 #chx{ position:relative; font-family:var(--ff); color:var(--ink); line-height:1.6;
