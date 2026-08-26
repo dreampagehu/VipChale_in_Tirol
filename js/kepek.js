@@ -171,13 +171,28 @@ window.KEPEK = {
   window.kepekAlkalmaz = function () {
     var elemek = document.querySelectorAll('img[data-kep]');
     for (var i = 0; i < elemek.length; i++) {
-      var el = elemek[i], k = window.KEPEK[el.getAttribute('data-kep')];
-      if (!k) continue;
-      var szel = (el.getAttribute('data-szelessegek') || '800,1200,1600,2000')
-        .split(',').map(Number);
-      el.srcset = szel.map(function (w) { return url(k, w) + ' ' + w + 'w'; }).join(', ');
-      el.src = url(k, szel[szel.length - 1]);
-      if (!el.alt) el.alt = k.alt;
+      (function (el) {
+        var k = window.KEPEK[el.getAttribute('data-kep')];
+        if (!k || el.dataset.kepKesz) return;
+        el.dataset.kepKesz = '1';
+
+        var szel = (el.getAttribute('data-szelessegek') || '800,1200,1600,2000')
+          .split(',').map(Number);
+
+        /* biztonsági háló: ha a reszponzív változat bármiért nem tölthető be,
+           egyetlen fix méretű képre esünk vissza — így nem marad üres hely */
+        el.addEventListener('error', function () {
+          if (el.dataset.kepTartalek) return;
+          el.dataset.kepTartalek = '1';
+          el.removeAttribute('srcset');
+          el.removeAttribute('sizes');
+          el.src = url(k, 1200);
+        });
+
+        el.srcset = szel.map(function (w) { return url(k, w) + ' ' + w + 'w'; }).join(', ');
+        el.src = url(k, szel[szel.length - 1]);
+        if (!el.alt) el.alt = k.alt;
+      })(elemek[i]);
     }
   };
 

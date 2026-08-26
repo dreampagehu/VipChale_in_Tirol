@@ -22,6 +22,16 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500&display=swap"></noscript>
 
+<script>
+/* A felfedő animáció csak akkor rejtheti el a tartalmat, ha a szekciók
+   szkriptje tényleg elindul. Ha 3 másodpercen belül nem jelentkezik,
+   a jelölést levesszük, és minden láthatóvá válik. */
+document.documentElement.classList.add('js');
+setTimeout(function () {
+  if (!window.__szekciokOk) document.documentElement.classList.remove('js');
+}, 3000);
+</script>
+
 <!-- A hero videó letöltése a legelső pillanatban indul, még a CSS és a
      szkriptek feldolgozása előtt. A js/main.js ezt a megkezdett letöltést
      veszi át, így nem kell újra kérni. -->

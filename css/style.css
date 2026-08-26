@@ -469,8 +469,10 @@ button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; 
 .sec__head--kozep .sec__lead{ margin-inline:auto; }
 .sec__title--sm{ font-size:clamp(1.9rem,3.4vw,3.2rem); max-width:18ch; }
 
-.rev{ opacity:0; transform:translateY(30px); transition:opacity 1.1s var(--ease), transform 1.1s var(--ease); }
-.rev.is-in{ opacity:1; transform:none; }
+/* A felfedő animáció csak akkor rejti el a tartalmat, ha a JS elindult
+   (a html elemre kerülő .js jelölés). Így JS-hiba esetén sem tűnik el semmi. */
+.js .rev{ opacity:0; transform:translateY(30px); transition:opacity 1.1s var(--ease), transform 1.1s var(--ease); }
+.js .rev.is-in{ opacity:1; transform:none; }
 
 figure{ margin:0; }
 .kep{ overflow:hidden; background:var(--forest-3); }

@@ -9,19 +9,50 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var MOBIL = 860;
 
-  /* ── 1. felfedés görgetésre ── */
+  /* visszajelzés a fejlécben lévő biztosítéknak: a szkript fut */
+  window.__szekciokOk = 1;
+  document.documentElement.classList.add('js');
+
+  /* ── 1. felfedés görgetésre ──
+     Fontos: a .rev elemek alapból opacity:0 értékkel indulnak, ezért ha a
+     figyelő bármiért nem futna le, a tartalom láthatatlan maradna. Több
+     biztosíték is van rá, hogy ez ne fordulhasson elő. */
   var revek = document.querySelectorAll('.rev');
+
+  function felfed(el) { el.classList.add('is-in'); }
+  function mindetFelfed() {
+    for (var k = 0; k < revek.length; k++) felfed(revek[k]);
+  }
+
   if (reduce || !('IntersectionObserver' in window)) {
-    for (var i = 0; i < revek.length; i++) revek[i].classList.add('is-in');
+    mindetFelfed();
   } else {
     var revObs = new IntersectionObserver(function (bejegyzesek) {
       bejegyzesek.forEach(function (b) {
         if (!b.isIntersecting) return;
-        b.target.classList.add('is-in');
+        felfed(b.target);
         revObs.unobserve(b.target);
       });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
-    for (var j = 0; j < revek.length; j++) revObs.observe(revek[j]);
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0 });
+
+    for (var j = 0; j < revek.length; j++) {
+      /* ami már a képernyőn (vagy fölötte) van, azonnal látszódjon */
+      var r = revek[j].getBoundingClientRect();
+      if (r.top < (window.innerHeight || 0)) felfed(revek[j]);
+      else revObs.observe(revek[j]);
+    }
+
+    /* biztonsági háló: ha valami félresiklana, a tartalom akkor is előjön */
+    window.addEventListener('load', function () {
+      window.setTimeout(function () {
+        for (var m = 0; m < revek.length; m++) {
+          var el = revek[m];
+          if (el.classList.contains('is-in')) continue;
+          var rr = el.getBoundingClientRect();
+          if (rr.top < (window.innerHeight || 0) * 1.5) felfed(el);
+        }
+      }, 1200);
+    });
   }
 
   /* ── 2. gasztronómia: a sticky kép a szöveghez igazodik ── */
