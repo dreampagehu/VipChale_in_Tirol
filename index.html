@@ -2,16 +2,132 @@
 <html lang="hu">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>VipChale in Tirol</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F6F3EE">
+<title>Chalet in Tirol — Prémium alpesi pihenés</title>
+<meta name="description" content="Kortárs kényelem és valódi alpesi nyugalom Tirol lenyűgöző hegyei között. Szobák, wellness és élmények egy prémium tiroli chalet hotelben.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="css/style.css">
+<noscript><style>
+  .loader{ display:none !important; }
+  .hero{ height:100svh !important; }
+  .hero__stage{ position:relative !important; }
+  .hero__video,.hero__fadeout,.hero__wash2,.scrollhint,.layer--arrive{ display:none !important; }
+  .hero__poster{ opacity:1 !important; }
+  .layer--intro > *{ opacity:1 !important; transform:none !important; }
+</style></noscript>
 </head>
 <body>
-  <main class="varakozik">
-    <p class="varakozik__cimke">Projekt indul</p>
-    <h1>VipChale in Tirol</h1>
-    <p class="varakozik__szoveg">A váz elkészült — jöhet a tartalom.</p>
-  </main>
-  <script src="js/main.js" defer></script>
+
+<a class="skip-link" href="#tartalom">Ugrás a tartalomra</a>
+
+<!-- ══════════════ BETÖLTŐ ══════════════ -->
+<div class="loader" id="loader" role="status" aria-live="polite" aria-label="Az oldal betöltése folyamatban">
+  <div class="loader__in">
+    <span class="loader__mark" aria-hidden="true">CHALET</span>
+    <span class="loader__rail" aria-hidden="true"><i id="loaderFill"></i></span>
+    <span class="loader__txt">Betöltés</span>
+  </div>
+</div>
+
+<!-- ══════════════ NAVIGÁCIÓ ══════════════ -->
+<header class="nav" id="nav">
+  <div class="nav__in">
+    <a class="brand" href="#" aria-label="Chalet in Tirol – kezdőlap">
+      <span class="brand__mark" aria-hidden="true"></span>
+      <span class="brand__txt"><strong>CHALET</strong><em>in Tirol</em></span>
+    </a>
+
+    <nav class="menu" id="menu" aria-label="Fő navigáció">
+      <ul class="menu__list">
+        <li><a href="#tartalom">A hotel</a></li>
+        <li><a href="#tartalom">Szobák</a></li>
+        <li><a href="#tartalom">Wellness</a></li>
+        <li><a href="#tartalom">Élmények</a></li>
+        <li><a href="#tartalom">Galéria</a></li>
+        <li><a href="#tartalom">Kapcsolat</a></li>
+      </ul>
+      <a class="btn btn--solid menu__cta" href="#tartalom">Foglalás</a>
+    </nav>
+
+    <a class="btn btn--solid nav__cta" href="#tartalom">Foglalás</a>
+
+    <button class="burger" id="burger" type="button" aria-label="Menü megnyitása" aria-expanded="false" aria-controls="menu">
+      <span aria-hidden="true"></span><span aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero" id="hero" aria-label="Érkezés a chalet-hez: a kamera a tetőtől a bejáraton át a belső térbe vezet">
+  <div class="hero__stage" id="stage">
+
+    <div class="hero__media">
+      <div class="hero__poster" id="poster" aria-hidden="true"></div>
+      <video class="hero__video" id="video" muted playsinline webkit-playsinline preload="auto" disablepictureinpicture aria-hidden="true"></video>
+      <div class="hero__wash" id="wash" aria-hidden="true"></div>
+      <div class="hero__wash2" id="wash2" aria-hidden="true"></div>
+      <div class="hero__fadeout" id="fadeout" aria-hidden="true"></div>
+    </div>
+
+    <div class="hero__ui">
+
+      <!-- 0–25%: nyitó szöveg -->
+      <div class="layer layer--intro" id="lyIntro">
+        <p class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span>Prémium alpesi pihenés</p>
+        <h1 class="display">A hegyek csendje.<br><span class="display__soft">Az Ön pillanata.</span></h1>
+        <p class="lead">Kortárs kényelem és valódi alpesi nyugalom Tirol lenyűgöző hegyei között.</p>
+        <div class="ctarow">
+          <a class="btn btn--solid btn--lg" href="#tartalom">Fedezze fel a hotelt</a>
+          <a class="btn btn--ghost btn--lg" href="#tartalom">Szobák és lakosztályok</a>
+        </div>
+      </div>
+
+      <!-- 85–100%: záró szöveg -->
+      <div class="layer layer--arrive" id="lyArrive">
+        <p class="eyebrow eyebrow--center"><span class="eyebrow__rule" aria-hidden="true"></span>Üdvözöljük</p>
+        <h2 class="display display--md">Megérkezett.</h2>
+        <p class="lead lead--center">Fedezze fel a szobákat, a wellnessélményt és Tirol természetes nyugalmát.</p>
+        <a class="btn btn--solid btn--lg" href="#tartalom" id="enterBtn">Belépek</a>
+      </div>
+
+    </div>
+
+    <!-- középső szakasz: visszafogott scrolljelző -->
+    <div class="scrollhint" id="hint" aria-hidden="true">
+      <span class="scrollhint__txt">Görgessen a belépéshez</span>
+      <span class="scrollhint__line"><i></i></span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════ A WEBOLDAL FOLYTATÁSA ══════════════ -->
+<main id="tartalom">
+  <section class="sec sec--intro">
+    <div class="wrap">
+      <p class="eyebrow eyebrow--dark"><span class="eyebrow__rule" aria-hidden="true"></span>Fedezze fel</p>
+      <h2 class="sec__title">Az Alpok ritmusa.<br><span class="sec__title-soft">Az Ön pihenése.</span></h2>
+      <p class="sec__lead">Egy hely, ahol a kortárs kényelem, a természetes anyagok és a hegyek nyugalma egységes élménnyé válik.</p>
+
+      <div class="placeholder">
+        <span>TARTALOM</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <span>© 2026 Chalet in Tirol</span>
+    <span>Tirol, Ausztria</span>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
 </body>
 </html>

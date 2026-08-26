@@ -1,0 +1,611 @@
+<!-- ══════════════════════════════════════════════════════════════
+     CHALET IN TIROL — görgetéssel vezérelt videós hero
+     Elementor HTML widgetbe illeszthető, önálló blokk.
+     Generált fájl: tools/build-elementor.py
+     A videó és a poszter URL-jét a <script> elején cseréld ki.
+     ══════════════════════════════════════════════════════════════ -->
+
+<div id="chx" class="chx">
+
+<header class="nav" id="chx-nav">
+  <div class="nav__in">
+    <a class="brand" href="#" aria-label="Chalet in Tirol – kezdőlap">
+      <span class="brand__mark" aria-hidden="true"></span>
+      <span class="brand__txt"><strong>CHALET</strong><em>in Tirol</em></span>
+    </a>
+
+    <nav class="menu" id="chx-menu" aria-label="Fő navigáció">
+      <ul class="menu__list">
+        <li><a href="#" data-next>A hotel</a></li>
+        <li><a href="#" data-next>Szobák</a></li>
+        <li><a href="#" data-next>Wellness</a></li>
+        <li><a href="#" data-next>Élmények</a></li>
+        <li><a href="#" data-next>Galéria</a></li>
+        <li><a href="#" data-next>Kapcsolat</a></li>
+      </ul>
+      <a class="btn btn--solid menu__cta" href="#" data-next>Foglalás</a>
+    </nav>
+
+    <a class="btn btn--solid nav__cta" href="#" data-next>Foglalás</a>
+
+    <button class="burger" id="chx-burger" type="button" aria-label="Menü megnyitása" aria-expanded="false" aria-controls="chx-menu">
+      <span aria-hidden="true"></span><span aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<section class="hero" id="chx-hero" aria-label="Érkezés a chalet-hez: a kamera a tetőtől a bejáraton át a belső térbe vezet">
+  <div class="hero__stage" id="chx-stage">
+
+    <div class="loader" id="chx-loader" role="status" aria-live="polite" aria-label="Az oldal betöltése folyamatban">
+      <div class="loader__in">
+        <span class="loader__mark" aria-hidden="true">CHALET</span>
+        <span class="loader__rail" aria-hidden="true"><i id="chx-loaderFill"></i></span>
+        <span class="loader__txt">Betöltés</span>
+      </div>
+    </div>
+
+
+    <div class="hero__media">
+      <div class="hero__poster" id="chx-poster" aria-hidden="true"></div>
+      <video class="hero__video" id="chx-video" muted playsinline webkit-playsinline preload="auto" disablepictureinpicture aria-hidden="true"></video>
+      <div class="hero__wash" id="chx-wash" aria-hidden="true"></div>
+      <div class="hero__wash2" id="chx-wash2" aria-hidden="true"></div>
+      <div class="hero__fadeout" id="chx-fadeout" aria-hidden="true"></div>
+    </div>
+
+    <div class="hero__ui">
+
+      <!-- 0–25%: nyitó szöveg -->
+      <div class="layer layer--intro" id="chx-lyIntro">
+        <p class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span>Prémium alpesi pihenés</p>
+        <h1 class="display">A hegyek csendje.<br><span class="display__soft">Az Ön pillanata.</span></h1>
+        <p class="lead">Kortárs kényelem és valódi alpesi nyugalom Tirol lenyűgöző hegyei között.</p>
+        <div class="ctarow">
+          <a class="btn btn--solid btn--lg" href="#" data-next>Fedezze fel a hotelt</a>
+          <a class="btn btn--ghost btn--lg" href="#" data-next>Szobák és lakosztályok</a>
+        </div>
+      </div>
+
+      <!-- 85–100%: záró szöveg -->
+      <div class="layer layer--arrive" id="chx-lyArrive">
+        <p class="eyebrow eyebrow--center"><span class="eyebrow__rule" aria-hidden="true"></span>Üdvözöljük</p>
+        <h2 class="display display--md">Megérkezett.</h2>
+        <p class="lead lead--center">Fedezze fel a szobákat, a wellnessélményt és Tirol természetes nyugalmát.</p>
+        <a class="btn btn--solid btn--lg" href="#" data-next id="chx-enterBtn">Belépek</a>
+      </div>
+
+    </div>
+
+    <!-- középső szakasz: visszafogott scrolljelző -->
+    <div class="scrollhint" id="chx-hint" aria-hidden="true">
+      <span class="scrollhint__txt">Görgessen a belépéshez</span>
+      <span class="scrollhint__line"><i></i></span>
+    </div>
+
+  </div>
+</section>
+
+</div>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap');
+
+#chx{ --sand: #F5F1EA; --sand-2: #EDE6DA; --beige: #E2D6C3; --wood: #A9825A; --bronze: #8F7048; --stone: #6E6A62; --forest: #2A3A2F; --forest-d:#1E241F; --ink: #23241F; --paper: #FBF8F3; --ff: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; --ff-d:"Cormorant Garamond", "Iowan Old Style", Georgia, "Times New Roman", serif; --wrap: 1320px; --pad: clamp(24px, 5vw, 72px); --ease: cubic-bezier(.22,.61,.36,1); --nav-h: 84px; --hero-vh: 500; }
+#chx *,#chx *::before,#chx *::after{ box-sizing:border-box; }
+#chx img,#chx video{ display:block; max-width:100%; }
+#chx h1,#chx h2,#chx h3,#chx p{ margin:0; }
+#chx .display{ font-family:var(--ff-d); font-weight:300; font-size:clamp(2.5rem, 5.6vw, 5.6rem); line-height:1.04; letter-spacing:-.012em; color:var(--paper); text-wrap:balance; }
+#chx .display--md{ font-size:clamp(2.3rem, 4.6vw, 4.6rem); }
+#chx .display__soft{ color:rgba(251,248,243,.72); font-style:italic; }
+#chx .eyebrow{ display:flex; align-items:center; gap:14px; font-size:clamp(10px, .82vw, 11.5px); letter-spacing:.32em; text-transform:uppercase; font-weight:500; color:rgba(251,248,243,.82); }
+#chx .eyebrow__rule{ width:clamp(26px,3.4vw,52px); height:1px; background:currentColor; opacity:.5; flex:none; }
+#chx .eyebrow--center{ justify-content:center; }
+#chx .lead{ font-size:clamp(1rem, 1.1vw, 1.18rem); font-weight:300; color:rgba(251,248,243,.88); max-width:44ch; }
+#chx .lead--center{ text-align:center; margin-inline:auto; }
+#chx .btn{ display:inline-flex; align-items:center; justify-content:center; min-height:52px; padding:0 28px; border:1px solid transparent; border-radius:2px; font-size:13px; letter-spacing:.06em; font-weight:500; transition:background .34s var(--ease), color .34s var(--ease), border-color .34s var(--ease), transform .34s var(--ease); }
+#chx .btn--lg{ min-height:60px; padding:0 36px; font-size:13.5px; }
+#chx .btn--solid{ background:var(--paper); color:var(--ink); border-color:var(--paper); }
+#chx .btn--solid:hover{ background:var(--beige); border-color:var(--beige); }
+#chx .btn--ghost{ color:var(--paper); border-color:rgba(251,248,243,.42); }
+#chx .btn--ghost:hover{ border-color:var(--paper); background:rgba(251,248,243,.10); }
+#chx .btn:active{ transform:translateY(1px); }
+#chx .ctarow{ display:flex; flex-wrap:wrap; gap:12px; }
+#chx .loader{ position:fixed; inset:0; z-index:1500; display:grid; place-items:center; background:var(--forest-d); transition:opacity .8s var(--ease), visibility .8s var(--ease); }
+#chx .loader.is-done{ opacity:0; visibility:hidden; }
+#chx .loader__in{ display:flex; flex-direction:column; align-items:center; gap:26px; }
+#chx .loader__mark{ font-family:var(--ff-d); font-size:clamp(1.5rem,3vw,2.2rem); letter-spacing:.42em; text-indent:.42em; color:rgba(245,241,234,.92); font-weight:300; }
+#chx .loader__rail{ display:block; width:min(240px,52vw); height:1px; background:rgba(245,241,234,.16); position:relative; overflow:hidden; }
+#chx .loader__rail i{ position:absolute; inset:0 auto 0 0; display:block; width:0%; background:linear-gradient(90deg, var(--wood), var(--sand)); transition:width .35s var(--ease); }
+#chx .loader__txt{ font-size:10px; letter-spacing:.36em; text-transform:uppercase; color:rgba(245,241,234,.55); }
+#chx .nav{ position:fixed; inset:0 0 auto 0; z-index:900; border-bottom:1px solid transparent; transition:background .5s var(--ease), border-color .5s var(--ease), backdrop-filter .5s var(--ease), color .5s var(--ease); color:var(--paper); }
+#chx .nav__in{ display:flex; align-items:center; gap:clamp(16px,3vw,44px); height:var(--nav-h); width:100%; max-width:var(--wrap); margin-inline:auto; padding-inline:var(--pad); }
+#chx .nav.is-solid{ background:rgba(245,241,234,.86); backdrop-filter:blur(16px) saturate(130%); -webkit-backdrop-filter:blur(16px) saturate(130%); border-bottom-color:rgba(35,36,31,.10); color:var(--ink); }
+#chx .brand{ display:flex; align-items:center; gap:12px; margin-right:auto; }
+#chx .brand__mark{ width:26px; height:26px; flex:none; position:relative; border:1px solid currentColor; opacity:.85; }
+#chx .brand__mark::before{ content:""; position:absolute; inset:6px 6px auto 6px; height:7px; border-top:1px solid currentColor; border-left:1px solid currentColor; transform:rotate(45deg); transform-origin:top left; }
+#chx .brand__txt{ display:flex; flex-direction:column; line-height:1; }
+#chx .brand__txt strong{ font-size:15px; letter-spacing:.28em; font-weight:500; }
+#chx .brand__txt em{ font-style:normal; font-size:10px; letter-spacing:.24em; opacity:.66; margin-top:5px; }
+#chx .menu{ display:flex; align-items:center; gap:clamp(18px,2.4vw,34px); }
+#chx .menu__list{ display:flex; gap:clamp(16px,2vw,30px); }
+#chx .menu__list a{ font-size:13.5px; font-weight:400; padding:6px 0; border-bottom:1px solid transparent; transition:border-color .3s var(--ease), opacity .3s var(--ease); opacity:.9; }
+#chx .menu__list a:hover{ opacity:1; border-bottom-color:currentColor; }
+#chx .menu__cta{ display:none; }
+#chx .nav__cta{ background:transparent; color:currentColor; border-color:currentColor; min-height:44px; padding:0 22px; font-size:12.5px; opacity:.9; }
+#chx .nav__cta:hover{ background:currentColor; border-color:currentColor; opacity:1; }
+#chx .nav.is-solid .nav__cta:hover{ color:var(--sand); }
+#chx .nav:not(.is-solid) .nav__cta:hover{ color:var(--ink); }
+#chx .burger{ display:none; width:44px; height:44px; position:relative; }
+#chx .burger span{ position:absolute; left:11px; right:11px; height:1px; background:currentColor; transition:transform .34s var(--ease), opacity .34s var(--ease); }
+#chx .burger span:nth-child(1){ top:19px; }
+#chx .burger span:nth-child(2){ top:25px; }
+#chx .burger.is-open span:nth-child(1){ transform:translateY(3px) rotate(45deg); }
+#chx .burger.is-open span:nth-child(2){ transform:translateY(-3px) rotate(-45deg); }
+#chx .hero{ position:relative; height:calc(var(--hero-vh) * 1vh); background:var(--forest-d); }
+#chx .hero__stage{ position:sticky; top:0; width:100%; height:100vh; height:100svh; overflow:hidden; background:var(--forest-d); }
+#chx .hero__media{ position:absolute; inset:0; }
+#chx .hero__poster{ position:absolute; inset:0; background-color:#7d8a86; background-size:cover; background-position:center; transition:opacity .8s var(--ease); }
+#chx .hero__video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; opacity:0; transition:opacity .6s var(--ease); }
+#chx .hero__video.is-live{ opacity:1; }
+#chx .hero__wash{ position:absolute; inset:0; pointer-events:none; background: linear-gradient(100deg, rgba(20,26,21,.80) 0%, rgba(20,26,21,.54) 30%, rgba(20,26,21,.16) 56%, rgba(20,26,21,0) 72%), linear-gradient(180deg, rgba(20,26,21,.34) 0%, rgba(20,26,21,0) 26%), linear-gradient(0deg, rgba(20,26,21,.38) 0%, rgba(20,26,21,0) 20%); }
+#chx .hero__wash2{ position:absolute; inset:0; pointer-events:none; opacity:0; background: radial-gradient(78% 62% at 50% 54%, rgba(20,26,21,.56) 0%, rgba(20,26,21,.28) 52%, rgba(20,26,21,0) 100%), linear-gradient(180deg, rgba(20,26,21,.22) 0%, rgba(20,26,21,0) 30%); }
+#chx .hero__fadeout{ position:absolute; inset:auto 0 0 0; height:40%; background:linear-gradient(180deg, rgba(245,241,234,0), var(--sand)); opacity:0; pointer-events:none; }
+#chx .hero__ui{ position:absolute; inset:0; display:grid; align-content:center; padding:calc(var(--nav-h) + 16px) var(--pad) clamp(90px,12vh,140px); pointer-events:none; }
+#chx .layer{ grid-area:1/1; display:flex; flex-direction:column; justify-content:center; pointer-events:none; will-change:opacity, transform; }
+#chx .layer > *{ pointer-events:auto; }
+#chx .layer--intro{ align-items:flex-start; gap:clamp(18px,2.2vw,30px); max-width:min(100%, 760px); }
+#chx .layer--arrive{ align-items:center; text-align:center; gap:clamp(18px,2vw,28px); opacity:0; }
+#chx .layer--arrive .btn{ margin-top:6px; }
+#chx .scrollhint{ position:absolute; left:50%; bottom:clamp(26px,4vh,44px); transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:12px; font-size:10.5px; letter-spacing:.3em; text-transform:uppercase; color:rgba(251,248,243,.78); pointer-events:none; text-align:center; }
+#chx .scrollhint__line{ display:block; width:1px; height:44px; background:rgba(251,248,243,.28); position:relative; overflow:hidden; }
+#chx .scrollhint__line i{ position:absolute; inset:0; display:block; background:linear-gradient(180deg, transparent, var(--paper)); animation:hintrun 2.6s var(--ease) infinite; }
+@keyframes hintrun{
+ 0%{ transform:translateY(-100%);} 62%,100%{ transform:translateY(100%);} 
+}
+#chx .layer--intro > *{ opacity:0; transform:translateY(24px); transition:opacity 1s var(--ease), transform 1.2s var(--ease); }
+#chx.is-ready .layer--intro > *:nth-child(1){ opacity:1; transform:none; transition-delay:.10s; }
+#chx.is-ready .layer--intro > *:nth-child(2){ opacity:1; transform:none; transition-delay:.22s; }
+#chx.is-ready .layer--intro > *:nth-child(3){ opacity:1; transform:none; transition-delay:.36s; }
+#chx.is-ready .layer--intro > *:nth-child(4){ opacity:1; transform:none; transition-delay:.48s; }
+#chx .scrollhint__txt,#chx .scrollhint__line{ opacity:0; transform:translateY(10px); transition:opacity .9s var(--ease) .9s, transform .9s var(--ease) .9s; }
+#chx.is-ready .scrollhint__txt,#chx.is-ready .scrollhint__line{ opacity:1; transform:none; }
+@media (max-width:1080px){
+#chx .menu__list{ gap:18px; }
+#chx .menu__list a{ font-size:12.5px; }
+}
+@media (max-width:860px){
+#chx{ --hero-vh:400; --nav-h:66px; --pad:22px; }
+#chx .burger{ display:block; }
+#chx .nav__cta{ display:none; }
+#chx .menu{ position:fixed; inset:0 0 auto 0; flex-direction:column; align-items:stretch; gap:0; padding:calc(var(--nav-h) + 18px) var(--pad) 32px; background:rgba(30,36,31,.97); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); color:var(--paper); transform:translateY(-102%); transition:transform .5s var(--ease); max-height:100svh; overflow-y:auto; }
+#chx .menu.is-open{ transform:none; }
+#chx .menu__list{ flex-direction:column; gap:0; }
+#chx .menu__list a{ display:block; padding:16px 0; font-size:1.05rem; opacity:1; border-bottom:1px solid rgba(251,248,243,.12); }
+#chx .menu__list a:hover{ border-bottom-color:rgba(251,248,243,.12); }
+#chx .menu__cta{ display:inline-flex; margin-top:22px; width:100%; }
+#chx .hero__ui{ align-content:end; padding:calc(var(--nav-h) + 12px) var(--pad) calc(104px + env(safe-area-inset-bottom)); }
+#chx .layer{ justify-content:flex-end; }
+#chx .layer--arrive{ justify-content:center; }
+#chx .hero__wash{ background: linear-gradient(180deg, rgba(20,26,21,.42) 0%, rgba(20,26,21,0) 22%), linear-gradient(0deg, rgba(20,26,21,.80) 0%, rgba(20,26,21,.42) 34%, rgba(20,26,21,0) 62%); }
+#chx .hero__wash2{ background: radial-gradient(96% 54% at 50% 52%, rgba(20,26,21,.58) 0%, rgba(20,26,21,.24) 60%, rgba(20,26,21,0) 100%); }
+#chx .display{ font-size:clamp(2rem, 8.4vw, 2.9rem); line-height:1.08; }
+#chx .display--md{ font-size:clamp(2rem, 8.4vw, 2.7rem); }
+#chx .lead{ font-size:1rem; max-width:34ch; }
+#chx .lead--center{ max-width:30ch; }
+#chx .eyebrow{ font-size:9.5px; letter-spacing:.26em; gap:10px; }
+#chx .ctarow{ width:100%; flex-direction:column; gap:10px; }
+#chx .ctarow .btn{ width:100%; min-height:56px; }
+#chx .layer--arrive .btn{ width:100%; max-width:320px; min-height:56px; }
+#chx .scrollhint{ bottom:calc(20px + env(safe-area-inset-bottom)); font-size:9.5px; letter-spacing:.24em; }
+#chx .scrollhint__line{ height:32px; }
+}
+@media (max-width:400px){
+#chx .display{ font-size:clamp(1.8rem, 8.2vw, 2.3rem); }
+#chx .brand__txt em{ display:none; }
+}
+@media (max-height:520px) and (orientation:landscape){
+#chx .hero__ui{ align-content:center; padding-bottom:60px; }
+#chx .layer{ justify-content:center; }
+#chx .lead{ display:none; }
+#chx .scrollhint{ display:none; }
+}
+#chx.is-static .hero{ height:auto; }
+#chx.is-static .hero__stage{ position:relative; height:100vh; height:100svh; min-height:560px; }
+#chx.is-static .hero__video,#chx.is-static .hero__fadeout,#chx.is-static .hero__wash2,#chx.is-static .scrollhint,#chx.is-static .loader{ display:none !important; }
+#chx.is-static .hero__poster{ opacity:1 !important; }
+#chx.is-static .layer--arrive{ display:none; }
+#chx.is-static .layer--intro > *{ opacity:1 !important; transform:none !important; }
+@media (prefers-reduced-motion: reduce){
+#chx *{ animation:none !important; transition-duration:.01ms !important; }
+}
+
+#chx{ position:relative; font-family:var(--ff); color:var(--ink); line-height:1.6;
+      -webkit-font-smoothing:antialiased; }
+#chx .loader{ position:absolute; z-index:20; }
+#chx.is-fixed .hero__stage{ position:fixed; top:0; }
+#chx.is-pinbot .hero__stage{ position:absolute; top:auto; bottom:0; }
+#chx.is-static .hero{ height:auto; }
+#chx.is-static .hero__stage{ position:relative; height:100vh; height:100svh; min-height:560px; }
+#chx img,#chx video{ display:block; max-width:100%; }
+#chx a{ text-decoration:none; color:inherit; }
+#chx ul{ margin:0; padding:0; list-style:none; }
+#chx h1,#chx h2,#chx p{ margin:0; }
+#chx button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
+
+</style>
+
+<script>
+/* ============================================================
+   Chalet in Tirol — görgetéssel vezérelt videós hero
+   ------------------------------------------------------------
+   A videó soha nem indul el magától: az aktuális időpontját
+   kizárólag a görgetési pozíció határozza meg — lefelé előre,
+   felfelé visszafelé. Nincs hang, nincs vezérlő, nincs loop.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  /* ═════════════════ ITT CSERÉLD AZ URL-EKET ═════════════════ */
+  var desktopVideoUrl = "IDE_JON_A_DESKTOP_VIDEO_URL";
+  var mobileVideoUrl  = "IDE_JON_A_MOBIL_VIDEO_URL";   /* üresen hagyva a desktop tölt be */
+  var posterUrl       = "IDE_JON_A_POSTER_KEP_URL";
+
+  var SHOW_NAV  = true;   /* false: ha az Elementor sablonnak saját fejléce van */
+  var NEXT_SEL  = "";     /* pl. "#szobak" — ide görgetnek a gombok; üresen a hero utáni részre */
+  var FULLBLEED = true;   /* kitörés az Elementor konténer szélességéből */
+  /* ═══════════════════════════════════════════════════════════ */
+  var desktopVideoUrl = "assets/chalet-hero.mp4";
+  var mobileVideoUrl  = "assets/chalet-hero-mobil.mp4";   /* üresen hagyva a desktop tölt be */
+  var posterUrl       = "assets/chalet-poster.jpg";
+  /* ══════════════════════════════════════════════════════ */
+
+  var MOBILE_BP = 860;          /* px — eddig számít mobilnak */
+  var TAU       = 70;           /* ms — a görgetéskövetés simasága (kisebb = közvetlenebb) */
+  var SEEK_TIMEOUT = 700;       /* ms — ennyi után tekintjük elakadtnak egy keresést */
+  var MAX_STALLS   = 4;         /* ennyi elakadás után mobilon tartalékra váltunk */
+
+  var root = document.getElementById('chx'),
+      doc = root, body = root,
+      hero   = document.getElementById('chx-hero'),
+      stage  = document.getElementById('chx-stage'),
+      video  = document.getElementById('chx-video'),
+      poster = document.getElementById('chx-poster'),
+      wash   = document.getElementById('chx-wash'),
+      wash2  = document.getElementById('chx-wash2'),
+      fadeout= document.getElementById('chx-fadeout'),
+      lyIntro= document.getElementById('chx-lyIntro'),
+      lyArr  = document.getElementById('chx-lyArrive'),
+      hint   = document.getElementById('chx-hint'),
+      loader = document.getElementById('chx-loader'),
+      lFill  = document.getElementById('chx-loaderFill'),
+      nav    = document.getElementById('chx-nav'),
+      menu   = document.getElementById('chx-menu'),
+      burger = document.getElementById('chx-burger');
+
+  if (!root || !hero || !stage || !video) return;
+
+  /* ── segédfüggvények ── */
+  function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+  function range(p, a, b) { return clamp((p - a) / (b - a), 0, 1); }
+  function smooth(t) { return t * t * (3 - 2 * t); }
+
+  var prev = {};
+  function css(el, prop, val, key) {
+    if (!el) return;
+    if (prev[key] === val) return;
+    prev[key] = val;
+    el.style[prop] = val;
+  }
+  function setLayer(el, key, o, y, blur) {
+    if (!el) return;
+    if (prev[key + 'o'] !== o) {
+      prev[key + 'o'] = o;
+      el.style.opacity = o.toFixed(3);
+      el.style.visibility = o < 0.012 ? 'hidden' : '';
+    }
+    var t = (y ? 'translate3d(0,' + y.toFixed(1) + 'px,0)' : '') || '';
+    if (prev[key + 't'] !== t) { prev[key + 't'] = t; el.style.transform = t; }
+    if (blur !== undefined) {
+      var f = blur > 0.1 ? 'blur(' + blur.toFixed(1) + 'px)' : '';
+      if (prev[key + 'b'] !== f) { prev[key + 'b'] = f; el.style.filter = f; }
+    }
+  }
+
+  /* ── poszter azonnal, hogy soha ne legyen üres/fekete a hero ── */
+  if (posterUrl) {
+    poster.style.backgroundImage = 'url("' + posterUrl + '")';
+    video.setAttribute('poster', posterUrl);
+  }
+
+  /* ═══════════════ NAVIGÁCIÓ ═══════════════ */
+  (function initNav() {
+    if (!burger || !menu) return;
+    function close() {
+      menu.classList.remove('is-open');
+      burger.classList.remove('is-open');
+      burger.setAttribute('aria-expanded', 'false');
+      burger.setAttribute('aria-label', 'Menü megnyitása');
+    }
+    burger.addEventListener('click', function () {
+      var open = !menu.classList.contains('is-open');
+      menu.classList.toggle('is-open', open);
+      burger.classList.toggle('is-open', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      burger.setAttribute('aria-label', open ? 'Menü bezárása' : 'Menü megnyitása');
+    });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) close(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > MOBILE_BP) close();
+    });
+  })();
+
+  /* ═══════════════ MÉRÉS ═══════════════ */
+  var heroTop = 0, travel = 1;
+  function measure() {
+    var r = hero.getBoundingClientRect();
+    heroTop = r.top + (window.scrollY || window.pageYOffset || 0);
+    travel  = Math.max(1, hero.offsetHeight - stage.clientHeight);
+  }
+  function progress() {
+    if (travel <= 1) measure();
+    return clamp(((window.scrollY || window.pageYOffset || 0) - heroTop) / travel, 0, 1);
+  }
+
+  /* ═══════════════ SZÖVEGRÉTEGEK ═══════════════ */
+  function layers(p) {
+    /* 0–20%: nyitó szöveg | 20–30%: lassan elhalványul és enyhén felfelé mozdul */
+    var out = smooth(range(p, 0.20, 0.30));
+    setLayer(lyIntro, 'i', 1 - out, -46 * out);
+
+    /* középső szakasz: csak a visszafogott scrolljelző, a bejáratnál eltűnik */
+    setLayer(hint, 'h', 1 - smooth(range(p, 0.56, 0.70)));
+
+    /* utolsó ~14%: megérkezés */
+    var a = smooth(range(p, 0.86, 0.95));
+    setLayer(lyArr, 'a', a, 30 * (1 - a), 10 * (1 - a));
+
+    /* háttérgradiensek */
+    css(wash,  'opacity', (1 - 0.86 * smooth(range(p, 0.20, 0.40))).toFixed(3), 'w1');
+    css(wash2, 'opacity', smooth(range(p, 0.82, 0.93)).toFixed(3), 'w2');
+
+    /* átmenet a következő szekcióba — a videó alja a szekció színébe olvad */
+    css(fadeout, 'opacity', smooth(range(p, 0.90, 1)).toFixed(3), 'fo');
+
+    /* navigáció: a végén olvasható, világos háttérrel */
+    var solid = p > 0.84;
+    if (prev.navSolid !== solid) { prev.navSolid = solid; nav.classList.toggle('is-solid', solid); }
+  }
+
+  /* ═══════════════ TARTALÉK MÓDOK ═══════════════ */
+  var mode = 'video';           /* 'video' | 'static' | 'parallax' */
+
+  function hideLoader() {
+    if (loader) loader.classList.add('is-done');
+    doc.classList.add('is-ready');
+  }
+
+  /* videóhiba vagy csökkentett mozgás: poszter + normál hero tartalom */
+  function goStatic(withParallax) {
+    if (mode !== 'video') return;
+    mode = withParallax ? 'parallax' : 'static';
+    try { video.pause(); } catch (e) {}
+    video.removeAttribute('src'); video.load();
+    root.classList.add('is-static');
+    poster.style.opacity = '1';
+    nav.classList.remove('is-solid');
+    var navSolid = function () { nav.classList.toggle('is-solid', (window.scrollY || 0) > 40); };
+    window.addEventListener('scroll', navSolid, { passive: true });
+    navSolid();
+    setLayer(lyIntro, 'i', 1, 0);
+    hideLoader();
+    measure();
+    if (withParallax) startParallax();
+  }
+
+  function startParallax() {
+    var praf = 0;
+    var step = function () {
+      praf = 0;
+      var r = hero.getBoundingClientRect();
+      var y = clamp(-r.top / Math.max(1, hero.offsetHeight), 0, 1);
+      poster.style.transform = 'translate3d(0,' + (y * 42).toFixed(1) + 'px,0) scale(1.06)';
+    };
+    var onScroll = function () { if (!praf) praf = requestAnimationFrame(step); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    step();
+  }
+
+  /* csökkentett mozgás: nincs görgetésvezérelt videó */
+  var reduceQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (reduceQ.matches) {
+    goStatic(false);
+    return;
+  }
+
+  /* ═══════════════ VIDEÓ ═══════════════ */
+  var isMobile = Math.min(window.innerWidth || 9999, (window.screen && window.screen.width) || 9999) <= MOBILE_BP;
+  video.src = (isMobile && mobileVideoUrl) ? mobileVideoUrl : desktopVideoUrl;
+
+  var dur = 0, metaOK = false, frameOK = false, started = false;
+  var seeking = false, seekAt = 0, stalls = 0, wanted = 0;
+
+  video.addEventListener('loadedmetadata', function () {
+    dur = video.duration || 0;
+    metaOK = true;
+    try { video.currentTime = 0; } catch (e) {}    /* első képkocka azonnal */
+    maybeStart();
+  });
+
+  video.addEventListener('loadeddata', function () {
+    frameOK = true;
+    video.classList.add('is-live');
+    window.setTimeout(function () { poster.style.opacity = '0'; }, 500);
+    maybeStart();
+  });
+
+  video.addEventListener('progress', function () {
+    if (!dur || !video.buffered || !video.buffered.length) return;
+    var end = video.buffered.end(video.buffered.length - 1);
+    if (lFill) lFill.style.width = Math.min(100, Math.round(end / dur * 100)) + '%';
+  });
+
+  video.addEventListener('canplay', function () { if (lFill) lFill.style.width = '100%'; });
+  video.addEventListener('error', function () { goStatic(false); });
+  window.setTimeout(function () {                  /* ha 15 mp alatt sincs kép, tartalék */
+    if (!frameOK && mode === 'video') goStatic(isMobile);
+  }, 15000);
+
+  video.addEventListener('seeked', function () {
+    seeking = false; stalls = 0;
+    applySeek();
+  });
+
+  function maybeStart() {
+    if (started || !metaOK || !frameOK) return;
+    started = true;
+    if (lFill) lFill.style.width = '100%';
+    measure();
+    cur = tgt = progress();
+    applyAll(cur);
+    window.setTimeout(hideLoader, 220);
+    kick();
+  }
+
+  /* iOS: a dekóder egyszeri feloldása az első interakcióra —
+     a lejátszás azonnal megáll, a videó ezután is csak a scrollt követi */
+  var primed = false;
+  function prime() {
+    if (primed) return; primed = true;
+    var pr;
+    try { pr = video.play(); } catch (e) { return; }
+    if (pr && pr.then) {
+      pr.then(function () { video.pause(); applySeek(); }, function () {});
+    } else {
+      try { video.pause(); } catch (e) {}
+    }
+  }
+  ['touchstart', 'pointerdown', 'wheel', 'keydown'].forEach(function (ev) {
+    window.addEventListener(ev, prime, { passive: true, once: true });
+  });
+
+  function applySeek() {
+    if (!metaOK || !dur) return;
+    if (seeking) {
+      if (Date.now() - seekAt < SEEK_TIMEOUT) return;
+      seeking = false;
+      stalls++;
+      if (stalls >= MAX_STALLS && isMobile) { goStatic(true); return; }
+    }
+    var t = clamp(wanted, 0, Math.max(0, dur - 0.04));
+    if (Math.abs(video.currentTime - t) < 0.02) return;
+    seeking = true; seekAt = Date.now();
+    try {
+      if (video.fastSeek) video.fastSeek(t); else video.currentTime = t;
+    } catch (e) { seeking = false; }
+  }
+
+  function applyAll(p) {
+    wanted = p * (dur ? dur - 0.04 : 0);
+    applySeek();
+    layers(p);
+  }
+
+  /* ═══════════════ GÖRGETÉSI MOTOR ═══════════════ */
+  var cur = 0, tgt = 0, raf = 0, lastT = 0, visible = true;
+
+  function frame(now) {
+    raf = 0;
+    var dt = lastT ? Math.min(now - lastT, 64) : 16;
+    lastT = now;
+
+    tgt = progress();
+    cur += (tgt - cur) * (1 - Math.exp(-dt / TAU));
+    if (Math.abs(tgt - cur) < 0.0003) cur = tgt;
+
+    applyAll(cur);
+    if (stuckOK === false) pin(); else checkPin();
+
+    if (visible || cur !== tgt) schedule();
+  }
+  function schedule() { if (!raf && mode === 'video') raf = window.requestAnimationFrame(frame); }
+  function kick() { lastT = 0; schedule(); }
+
+  /* a ciklus csak akkor fusson, amikor a hero látszik */
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) {
+      visible = e[0].isIntersecting;
+      if (visible) kick();
+    }, { rootMargin: '15% 0px' }).observe(hero);
+  }
+
+  window.addEventListener('scroll', kick, { passive: true });
+  window.addEventListener('touchmove', kick, { passive: true });
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) kick(); });
+
+  var rt = 0;
+  function onResize() {
+    window.clearTimeout(rt);
+    rt = window.setTimeout(function () { fullBleed(); measure(); if (stuckOK === false) pin(); kick(); }, 150);
+  }
+  window.addEventListener('resize', onResize, { passive: true });
+  window.addEventListener('orientationchange', function () {
+    window.setTimeout(function () { measure(); cur = tgt = progress(); applyAll(cur); kick(); }, 320);
+  });
+  window.addEventListener('load', function () { measure(); kick(); });
+
+  /* ── Elementor: teljes szélesség a konténeren belül ── */
+  function fullBleed() {
+    if (!FULLBLEED) return;
+    root.style.marginLeft = '0'; root.style.width = 'auto';
+    var l = root.getBoundingClientRect().left;
+    root.style.width = document.documentElement.clientWidth + 'px';
+    root.style.marginLeft = (-l) + 'px';
+  }
+
+  /* ── sticky tartalék: ha egy szülő transformja elrontaná a pinnelést ── */
+  var stuckOK = null;
+  function checkPin() {
+    if (stuckOK !== null) return;
+    var p = progress();
+    if (p > 0.06 && p < 0.94) {
+      stuckOK = Math.abs(stage.getBoundingClientRect().top) < 4;
+      if (!stuckOK) pin();
+    }
+  }
+  function pin() {
+    var r = hero.getBoundingClientRect(), H = stage.clientHeight;
+    root.classList.remove('is-fixed', 'is-pinbot');
+    if (r.top <= 0 && r.bottom >= H) {
+      root.classList.add('is-fixed');
+      stage.style.left = r.left + 'px'; stage.style.width = r.width + 'px';
+    } else {
+      if (r.bottom < H) root.classList.add('is-pinbot');
+      stage.style.left = ''; stage.style.width = '';
+    }
+  }
+
+  /* ── a gombok a következő szakaszra görgetnek ── */
+  root.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('[data-next]') : null;
+    if (!a) return;
+    e.preventDefault();
+    var el = NEXT_SEL ? document.querySelector(NEXT_SEL) : null;
+    var y = el ? (el.getBoundingClientRect().top + window.scrollY)
+               : (hero.getBoundingClientRect().bottom + window.scrollY);
+    try { window.scrollTo({ top: y, behavior: reduceQ.matches ? 'auto' : 'smooth' }); }
+    catch (err) { window.scrollTo(0, y); }
+  });
+
+  if (!SHOW_NAV && nav && nav.parentNode) nav.parentNode.removeChild(nav);
+
+  /* indulás */
+  fullBleed();
+  measure();
+  layers(progress());
+  video.load();
+
+})();
+
+</script>
