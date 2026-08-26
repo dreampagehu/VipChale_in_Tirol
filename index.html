@@ -11,9 +11,50 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
 <link rel="preconnect" href="https://images.pexels.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- a hero első képe a legfontosabb: azonnal induljon a letöltése -->
+<link rel="preload" as="image" href="assets/chalet-poster.webp" type="image/webp" fetchpriority="high">
 
 <link rel="stylesheet" href="css/style.css">
+
+<!-- a betűtípus nem blokkolja a renderelést -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@300;400;500&display=swap"></noscript>
+
+<!-- A hero videó letöltése a legelső pillanatban indul, még a CSS és a
+     szkriptek feldolgozása előtt. A js/main.js ezt a megkezdett letöltést
+     veszi át, így nem kell újra kérni. -->
+<script>
+(function () {
+  var kicsi = 'assets/chalet-hero.mp4';           /* 1280×720 — gyors indulás */
+  var portre = 'assets/chalet-hero-portre.mp4';   /* álló telefon */
+  var sc = window.screen || {};
+  var eszkoz = Math.max(sc.width || 0, sc.height || 0) || window.innerWidth || 1280;
+  var allo = window.matchMedia('(orientation: portrait)').matches;
+  var kicsiKepernyo = Math.min(window.innerWidth || 9999, sc.width || 9999) <= 860;
+  var url = (allo && kicsiKepernyo) ? portre : kicsi;
+  var c = navigator.connection || {};
+  if (c.saveData === true || /(^|-)2g$/.test(c.effectiveType || '')) { window.__heroUrl = url; return; }
+  window.__heroUrl = url;
+  window.__heroSzazalek = 0;
+  window.__heroBlob = (window.fetch ? window.fetch(url, { cache: 'force-cache' }).then(function (r) {
+    if (!r.ok) return null;
+    var teljes = parseInt(r.headers.get('Content-Length') || '0', 10);
+    if (!r.body || !r.body.getReader) return r.blob();
+    var olvaso = r.body.getReader(), darabok = [], kapott = 0;
+    return (function tolt() {
+      return olvaso.read().then(function (d) {
+        if (d.done) return new Blob(darabok, { type: 'video/mp4' });
+        darabok.push(d.value); kapott += d.value.length;
+        if (teljes) window.__heroSzazalek = Math.min(99, Math.round(kapott / teljes * 100));
+        return tolt();
+      });
+    })();
+  }).then(function (b) { window.__heroSzazalek = 100; return b ? URL.createObjectURL(b) : null; })
+    .catch(function () { return null; }) : null);
+})();
+</script>
 <noscript><style>
   .loader{ display:none !important; }
   .hero{ height:100vh; height:100svh; }
@@ -54,10 +95,10 @@
         <li><a href="#foglaltsag">Foglalás</a></li>
         <li><a href="#kapcsolat">Kapcsolat</a></li>
       </ul>
-      <a class="btn btn--solid menu__cta" href="#kapcsolat">Ajánlatot kérek</a>
+      <a class="btn btn--solid menu__cta" href="#kapcsolat">Foglalj most</a>
     </nav>
 
-    <a class="btn btn--solid nav__cta" href="#kapcsolat">Ajánlatot kérek</a>
+    <a class="btn btn--solid nav__cta" href="#kapcsolat">Foglalj most</a>
 
     <button class="burger" id="burger" type="button" aria-label="Menü megnyitása" aria-expanded="false" aria-controls="menu">
       <span aria-hidden="true"></span><span aria-hidden="true"></span>
@@ -84,7 +125,7 @@
         <h1 class="display">Egész chalet,<br><span class="display__soft">csak az Ön társaságának.</span></h1>
         <p class="lead">Pároknak, családoknak és baráti társaságoknak kínálunk privát alpesi chaletet szállással, reggelivel és à la carte vacsorával, valamint nyári és téli programszervezéssel — a szabad időpontokat a naptárban látja.</p>
         <div class="ctarow">
-          <a class="btn btn--solid btn--lg" href="#kapcsolat">Ajánlatot kérek</a>
+          <a class="btn btn--solid btn--lg" href="#kapcsolat">Foglalj most</a>
           <a class="btn btn--ghost btn--lg" href="#foglaltsag">Szabad időpontok</a>
         </div>
       </div>
@@ -475,7 +516,7 @@
         </div>
         <dl class="foglalas__ertek"><dt>Éjszakák száma</dt><dd id="valEjszaka">—</dd></dl>
         <p class="foglalas__info" id="foglalasInfo">Kattintson az érkezés napjára, majd a távozás napjára. Legalább 2 éjszaka foglalható.</p>
-        <a class="btn btn--dark btn--lg" href="#kapcsolat" id="foglalasCta">Ajánlatot kérek</a>
+        <a class="btn btn--dark btn--lg" href="#kapcsolat" id="foglalasCta">Foglalj most</a>
         <button class="foglalas__torol" type="button" id="foglalasTorol">Kijelölés törlése</button>
       </aside>
     </div>
@@ -554,7 +595,7 @@
            a Fluent Forms mezőit ugyanezekkel az id-kkal érdemes elnevezni.
            ════════════════════════════════════════════════════════════ -->
       <form class="urlap" id="ajanlatUrlap" novalidate>
-        <p class="urlap__cim">Ajánlatkérés</p>
+        <p class="urlap__cim">Foglalj most</p>
 
         <label class="mezo">
           <span class="mezo__cimke">Név <i aria-hidden="true">*</i></span>
@@ -609,7 +650,7 @@
           <span>Elolvastam és elfogadom az <a href="#adatkezeles" title="Helyőrző — cseréld a valódi aloldal URL-jére">adatkezelési tájékoztatót</a>.</span>
         </label>
 
-        <button class="btn btn--dark btn--lg urlap__kuld" type="submit">Ajánlatot kérek</button>
+        <button class="btn btn--dark btn--lg urlap__kuld" type="submit">Foglalj most</button>
         <p class="urlap__info" id="urlapInfo" role="status">Ez az űrlap előnézet. Éles oldalon a Fluent Forms kezeli a beküldést.</p>
       </form>
     </div>

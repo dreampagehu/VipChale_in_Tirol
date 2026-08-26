@@ -824,3 +824,14 @@ figure{ margin:0; }
   .gastro__img{ transition:opacity .01ms !important; transform:none !important; clip-path:none !important; }
   .szolg:hover .szolg__media img, .ref:hover .ref__media img{ transform:none; }
 }
+
+/* ============================================================
+   TELJESÍTMÉNY
+   A hajtás alatti szekciók csak akkor renderelődnek, amikor
+   a közelükbe érünk. A megadott becsült magasság megakadályozza,
+   hogy a görgetősáv ugráljon.
+   ============================================================ */
+#folyamat, #miert, #referenciak, #velemenyek, #gyik, #kapcsolat{
+  content-visibility:auto;
+  contain-intrinsic-size:auto 900px;
+}

@@ -277,3 +277,30 @@ napon nyúlik át. Asztali nézetben két hónapot mutat, mobilon egyet.
 
 Ha később külső foglalórendszert (Lodgify, Smoobu, Fluent Booking) használsz,
 elég a JSON-t abból generálni — a naptár kódja változatlan maradhat.
+
+
+## Sebesség
+
+A hero a legfontosabb, ezért a betöltése több lépcsőben történik:
+
+1. **Poszterkép azonnal.** A `<head>`-ben `preload` + `fetchpriority="high"`,
+   WebP formátumban (~83 KB) — ez az első, amit a látogató lát.
+2. **A videó letöltése a legelső pillanatban indul**, még a CSS és a szkriptek
+   feldolgozása előtt: egy rövid inline script a `<head>`-ben elkezdi a
+   `fetch`-et, a `js/main.js` pedig ezt a megkezdett letöltést veszi át.
+   Így nem kell kétszer kérni, és nem kell megvárni a JS-t.
+3. **Kis fájllal indul mindenki** (1280×720, 2,7 MB), hogy a görgetés a lehető
+   leghamarabb működjön. Álló telefonon a 720×1280-as vágott változat megy.
+4. **A nagy felbontás utólag, a háttérben érkezik.** Nagy képernyőn és jó
+   hálózaton (`effectiveType` nem 2g/3g, nincs `saveData`) betöltjük az
+   1920×1080-as változatot, a pontos képkockára állítjuk, majd láthatatlanul
+   átúsztatunk rá. A régi elemet eltávolítjuk, a blob URL-t felszabadítjuk.
+
+További optimalizálás:
+
+- a betűtípusok **nem blokkolják a renderelést** (`media="print"` + `onload`),
+  és csak a ténylegesen használt vastagságokat töltjük be
+- a hajtás alatti szekciókon `content-visibility: auto`, becsült magassággal —
+  a böngésző csak akkor rendereli őket, amikor a közelükbe érünk
+- minden hajtás alatti kép `loading="lazy"`, `width`/`height` és `srcset` értékkel
+- a szkriptek `defer`-rel töltődnek, a görgetésfigyelők `passive: true`-val

@@ -11,8 +11,8 @@
   /* ═════════ ITT CSERÉLD A FÁJLOK ELÉRÉSI ÚTJÁT ═════════
      Három felbontás: a böngésző a képernyő és a kapcsolat alapján választ.
      Ha csak egy fájlod van, írd mindhárom sorba ugyanazt. */
-  var desktopVideoUrl = "assets/chalet-hero-1080.mp4";    /* nagy / Retina képernyő */
-  var tabletVideoUrl  = "assets/chalet-hero.mp4";         /* közepes képernyő, lassú net */
+  var desktopVideoUrl = "assets/chalet-hero-1080.mp4";    /* nagy képernyő — CSAK utólag, háttérben */
+  var tabletVideoUrl  = "assets/chalet-hero.mp4";         /* ezzel indul mindenki: gyors */
   var mobileVideoUrl  = "assets/chalet-hero-portre.mp4";  /* álló telefon (9:16 vágás) */
   var posterUrl       = "assets/chalet-poster.jpg";
   var posterMobileUrl = "assets/chalet-poster-portre.jpg";
@@ -75,18 +75,14 @@
   /* ── forrásválasztás: képernyő, pixelsűrűség és kapcsolat alapján ── */
   var conn = navigator.connection || navigator.mozConnection || {};
   function isPortraitPhone() {
-    var w = Math.min(window.innerWidth || 9999, (window.screen && window.screen.width) || 9999);
+    var belso = window.innerWidth || document.documentElement.clientWidth || 9999;
+    var w = Math.min(belso, (window.screen && window.screen.width) || 9999);
     return w <= MOBILE_BP && window.matchMedia('(orientation: portrait)').matches;
   }
+  /* Mindenki a kisebb fájllal indul, hogy a hero azonnal használható legyen.
+     A nagyobb felbontás utólag, a háttérben érkezik (lásd: minosegNoveles). */
   function pickVideo() {
-    var slow = conn.saveData === true || /(^|-)2g$/.test(conn.effectiveType || '');
     if (isPortraitPhone() && mobileVideoUrl) return mobileVideoUrl;
-    /* nincs külön mobil fájl → a többi közül választunk */
-    var sc = window.screen || {};
-    var deviceMax = Math.max(sc.width || 0, sc.height || 0) || window.innerWidth || 1280;
-    var px = (window.innerWidth || 1280) * Math.min(window.devicePixelRatio || 1, 3);
-    /* a nagy fájl csak valóban nagy készüléknek megy — telefonra fekvőben sem */
-    if (!slow && deviceMax >= 1100 && px >= 1500 && desktopVideoUrl) return desktopVideoUrl;
     return tabletVideoUrl || desktopVideoUrl;
   }
   function pickPoster() {
@@ -97,7 +93,9 @@
   function applyPoster() {
     var u = pickPoster();
     if (!u) return;
-    poster.style.backgroundImage = 'url("' + u + '")';
+    var webp = u.replace(/\.jpg$/, '.webp');
+    poster.style.backgroundImage = 'image-set(url("' + webp + '") type("image/webp"), url("' + u + '"))';
+    if (!poster.style.backgroundImage) poster.style.backgroundImage = 'url("' + u + '")';
     video.setAttribute('poster', u);
   }
   applyPoster();
@@ -251,8 +249,22 @@
     currentSrc = url;
     metaOK = false; frameOK = false; started = false; seeking = false; stalls = 0;
     if (objectUrl) { URL.revokeObjectURL(objectUrl); objectUrl = null; }
+
+    /* a <head>-ben már elindított letöltés átvétele — nem kérjük le kétszer */
+    var elore = (url === window.__heroUrl && window.__heroBlob) ? window.__heroBlob : null;
+    if (elore) {
+      kovetesInditasa();
+      elore.then(function (blobUrl) {
+        if (currentSrc !== url) { if (blobUrl) URL.revokeObjectURL(blobUrl); return; }
+        objectUrl = blobUrl;
+        video.src = blobUrl || url;
+        video.load();
+      });
+      return;
+    }
+
     fetchToBlob(url, function (blobUrl) {
-      if (currentSrc !== url) {                 /* közben forrást váltottunk */
+      if (currentSrc !== url) {
         if (blobUrl) URL.revokeObjectURL(blobUrl);
         return;
       }
@@ -262,12 +274,85 @@
     });
   }
 
+  /* a fejben futó letöltés százalékának kijelzése */
+  function kovetesInditasa() {
+    if (!lFill) return;
+    var id = window.setInterval(function () {
+      var p = window.__heroSzazalek || 0;
+      lFill.style.width = p + '%';
+      if (p >= 100 || frameOK) window.clearInterval(id);
+    }, 120);
+  }
+
+  /* ── minőségnövelés: a gyors 720p után csendben betöltjük az 1080p-t,
+        és láthatatlanul átúsztatunk rá (csak nagy képernyőn, jó hálózaton) ── */
+  var nagyUrl = desktopVideoUrl;
+  var nagyBetoltve = false;
+
+  function minosegNoveles() {
+    if (nagyBetoltve || mode !== 'video' || !nagyUrl) return;
+    if (currentSrc === nagyUrl) return;
+    var c = navigator.connection || {};
+    if (c.saveData === true || /(^|-)(2g|3g)$/.test(c.effectiveType || '')) return;
+    /* csak valóban nagy készüléken van értelme — a képernyő mérete
+       megbízhatóbb, mint az ablaké (háttérben lévő fülnél 0 is lehet) */
+    var sc = window.screen || {};
+    var eszkozMax = Math.max(sc.width || 0, sc.height || 0) || window.innerWidth || 0;
+    if (eszkozMax < 1100) return;
+    nagyBetoltve = true;
+
+    fetchToBlob(nagyUrl, function (blobUrl) {
+      if (!blobUrl || mode !== 'video') { if (blobUrl) URL.revokeObjectURL(blobUrl); return; }
+      var uj = document.createElement('video');
+      uj.className = 'hero__video';
+      uj.muted = true; uj.defaultMuted = true;
+      uj.playsInline = true;
+      uj.setAttribute('playsinline', ''); uj.setAttribute('webkit-playsinline', '');
+      uj.preload = 'auto'; uj.controls = false; uj.disablePictureInPicture = true;
+      uj.setAttribute('aria-hidden', 'true');
+
+      var cel = 0, probak = 0;
+      uj.addEventListener('loadeddata', function () {
+        cel = video.currentTime;
+        try { uj.currentTime = cel; } catch (e) {}
+      });
+      uj.addEventListener('seeked', function elso() {
+        /* csak akkor váltunk, ha az új videó tényleg ugyanott áll —
+           különben egy pillanatra visszaugrana az első képkockára */
+        if (Math.abs(uj.currentTime - cel) > 0.12 && probak < 4) {
+          probak++;
+          try { uj.currentTime = cel; } catch (e) {}
+          return;
+        }
+        uj.removeEventListener('seeked', elso);
+        uj.classList.add('is-live');                 /* áttűnés a régiről */
+        var regi = video, regiUrl = objectUrl;
+        var azonosito = regi.id;
+        if (azonosito) { regi.removeAttribute('id'); uj.id = azonosito; }
+        video = uj; objectUrl = blobUrl; currentSrc = nagyUrl;
+        esemenyeketKot(uj);
+        seeking = false; applySeek();      /* biztos, ami biztos: a helyes képkockára */
+        window.setTimeout(function () {
+          try { regi.pause(); regi.removeAttribute('src'); regi.load(); } catch (e) {}
+          if (regi.parentNode) regi.parentNode.removeChild(regi);
+          if (regiUrl) URL.revokeObjectURL(regiUrl);
+        }, 900);
+      });
+
+      video.parentNode.insertBefore(uj, video.nextSibling);
+      uj.src = blobUrl;
+      uj.load();
+    });
+  }
+
   /* elforgatáskor / méretváltáskor a megfelelő felbontásra váltunk,
      a görgetési pozíciót megtartva */
   function swapSourceIfNeeded() {
     if (mode !== 'video') return;
     var want = pickVideo();
     if (want === currentSrc) return;
+    /* ha már a nagy felbontáson vagyunk, ne essünk vissza a kisebbre */
+    if (currentSrc === desktopVideoUrl && want === tabletVideoUrl) return;
     applyPoster();
     poster.style.opacity = '1';
     video.classList.remove('is-live');
@@ -309,6 +394,12 @@
     applySeek();
   });
 
+  /* a minőségnövelés után az új videóelemre is ugyanezek kellenek */
+  function esemenyeketKot(v) {
+    v.addEventListener('seeked', function () { seeking = false; stalls = 0; applySeek(); });
+    v.addEventListener('error', function () { goStatic(false); });
+  }
+
   function maybeStart() {
     if (started || !metaOK || !frameOK) return;
     started = true;
@@ -318,6 +409,8 @@
     applyAll(cur);
     window.setTimeout(hideLoader, 220);
     kick();
+    /* a nagyobb felbontás csendben, a háttérben tölt be */
+    window.setTimeout(minosegNoveles, 1200);
   }
 
   /* iOS: a dekóder egyszeri feloldása az első interakcióra —
@@ -405,6 +498,6 @@
   /* indulás */
   measure();
   layers(progress());
-  loadSource(pickVideo());
+  loadSource(window.__heroUrl || pickVideo());
 
 })();
