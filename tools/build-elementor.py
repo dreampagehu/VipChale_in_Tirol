@@ -127,10 +127,14 @@ EXTRA_CSS = """
 #chx button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
 """
 
-CONFIG = '''  /* ═════════════════ ITT CSERÉLD AZ URL-EKET ═════════════════ */
-  var desktopVideoUrl = "IDE_JON_A_DESKTOP_VIDEO_URL";
-  var mobileVideoUrl  = "IDE_JON_A_MOBIL_VIDEO_URL";   /* üresen hagyva a desktop tölt be */
+CONFIG = '''  /* ═════════════════ ITT CSERÉLD AZ URL-EKET ═════════════════
+     Három felbontás: a böngésző a képernyő és a kapcsolat alapján választ.
+     Ha csak egy fájlod van, írd mindhárom videósorba ugyanazt. */
+  var desktopVideoUrl = "IDE_JON_A_DESKTOP_VIDEO_URL";    /* nagy / Retina képernyő */
+  var tabletVideoUrl  = "";                               /* opcionális: közepes képernyő / lassú net */
+  var mobileVideoUrl  = "";                               /* opcionális: álló telefon (9:16 vágás) */
   var posterUrl       = "IDE_JON_A_POSTER_KEP_URL";
+  var posterMobileUrl = "";                               /* opcionális: álló poszter */
 
   var SHOW_NAV  = true;   /* false: ha az Elementor sablonnak saját fejléce van */
   var NEXT_SEL  = "";     /* pl. "#szobak" — ide görgetnek a gombok; üresen a hero utáni részre */

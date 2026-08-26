@@ -246,19 +246,19 @@
 (function () {
   'use strict';
 
-  /* ═════════════════ ITT CSERÉLD AZ URL-EKET ═════════════════ */
-  var desktopVideoUrl = "IDE_JON_A_DESKTOP_VIDEO_URL";
-  var mobileVideoUrl  = "IDE_JON_A_MOBIL_VIDEO_URL";   /* üresen hagyva a desktop tölt be */
+  /* ═════════════════ ITT CSERÉLD AZ URL-EKET ═════════════════
+     Három felbontás: a böngésző a képernyő és a kapcsolat alapján választ.
+     Ha csak egy fájlod van, írd mindhárom videósorba ugyanazt. */
+  var desktopVideoUrl = "IDE_JON_A_DESKTOP_VIDEO_URL";    /* nagy / Retina képernyő */
+  var tabletVideoUrl  = "";                               /* opcionális: közepes képernyő / lassú net */
+  var mobileVideoUrl  = "";                               /* opcionális: álló telefon (9:16 vágás) */
   var posterUrl       = "IDE_JON_A_POSTER_KEP_URL";
+  var posterMobileUrl = "";                               /* opcionális: álló poszter */
 
   var SHOW_NAV  = true;   /* false: ha az Elementor sablonnak saját fejléce van */
   var NEXT_SEL  = "";     /* pl. "#szobak" — ide görgetnek a gombok; üresen a hero utáni részre */
   var FULLBLEED = true;   /* kitörés az Elementor konténer szélességéből */
   /* ═══════════════════════════════════════════════════════════ */
-  var desktopVideoUrl = "assets/chalet-hero.mp4";
-  var mobileVideoUrl  = "assets/chalet-hero-mobil.mp4";   /* üresen hagyva a desktop tölt be */
-  var posterUrl       = "assets/chalet-poster.jpg";
-  /* ══════════════════════════════════════════════════════ */
 
   var MOBILE_BP = 860;          /* px — eddig számít mobilnak */
   var TAU       = 70;           /* ms — a görgetéskövetés simasága (kisebb = közvetlenebb) */
@@ -312,11 +312,35 @@
     }
   }
 
-  /* ── poszter azonnal, hogy soha ne legyen üres/fekete a hero ── */
-  if (posterUrl) {
-    poster.style.backgroundImage = 'url("' + posterUrl + '")';
-    video.setAttribute('poster', posterUrl);
+  /* ── forrásválasztás: képernyő, pixelsűrűség és kapcsolat alapján ── */
+  var conn = navigator.connection || navigator.mozConnection || {};
+  function isPortraitPhone() {
+    var w = Math.min(window.innerWidth || 9999, (window.screen && window.screen.width) || 9999);
+    return w <= MOBILE_BP && window.matchMedia('(orientation: portrait)').matches;
   }
+  function pickVideo() {
+    var slow = conn.saveData === true || /(^|-)2g$/.test(conn.effectiveType || '');
+    if (isPortraitPhone() && mobileVideoUrl) return mobileVideoUrl;
+    /* nincs külön mobil fájl → a többi közül választunk */
+    var sc = window.screen || {};
+    var deviceMax = Math.max(sc.width || 0, sc.height || 0) || window.innerWidth || 1280;
+    var px = (window.innerWidth || 1280) * Math.min(window.devicePixelRatio || 1, 3);
+    /* a nagy fájl csak valóban nagy készüléknek megy — telefonra fekvőben sem */
+    if (!slow && deviceMax >= 1100 && px >= 1500 && desktopVideoUrl) return desktopVideoUrl;
+    return tabletVideoUrl || desktopVideoUrl;
+  }
+  function pickPoster() {
+    return (isPortraitPhone() && posterMobileUrl) ? posterMobileUrl : posterUrl;
+  }
+
+  /* ── poszter azonnal, hogy soha ne legyen üres/fekete a hero ── */
+  function applyPoster() {
+    var u = pickPoster();
+    if (!u) return;
+    poster.style.backgroundImage = 'url("' + u + '")';
+    video.setAttribute('poster', u);
+  }
+  applyPoster();
 
   /* ═══════════════ NAVIGÁCIÓ ═══════════════ */
   (function initNav() {
@@ -426,7 +450,23 @@
 
   /* ═══════════════ VIDEÓ ═══════════════ */
   var isMobile = Math.min(window.innerWidth || 9999, (window.screen && window.screen.width) || 9999) <= MOBILE_BP;
-  video.src = (isMobile && mobileVideoUrl) ? mobileVideoUrl : desktopVideoUrl;
+  var currentSrc = pickVideo();
+  video.src = currentSrc;
+
+  /* elforgatáskor / méretváltáskor a megfelelő felbontásra váltunk,
+     a görgetési pozíciót megtartva */
+  function swapSourceIfNeeded() {
+    if (mode !== 'video') return;
+    var want = pickVideo();
+    if (want === currentSrc) return;
+    currentSrc = want;
+    metaOK = false; frameOK = false; started = false; seeking = false; stalls = 0;
+    applyPoster();
+    poster.style.opacity = '1';
+    video.classList.remove('is-live');
+    video.src = want;
+    video.load();
+  }
 
   var dur = 0, metaOK = false, frameOK = false, started = false;
   var seeking = false, seekAt = 0, stalls = 0, wanted = 0;
@@ -547,11 +587,11 @@
   var rt = 0;
   function onResize() {
     window.clearTimeout(rt);
-    rt = window.setTimeout(function () { fullBleed(); measure(); if (stuckOK === false) pin(); kick(); }, 150);
+    rt = window.setTimeout(function () { swapSourceIfNeeded(); measure(); kick(); }, 150);
   }
   window.addEventListener('resize', onResize, { passive: true });
   window.addEventListener('orientationchange', function () {
-    window.setTimeout(function () { measure(); cur = tgt = progress(); applyAll(cur); kick(); }, 320);
+    window.setTimeout(function () { swapSourceIfNeeded(); measure(); cur = tgt = progress(); applyAll(cur); kick(); }, 320);
   });
   window.addEventListener('load', function () { measure(); kick(); });
 

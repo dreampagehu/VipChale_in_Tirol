@@ -19,37 +19,47 @@ elementor-hero.html     egyfájlos, beilleszthető változat Elementor HTML widg
 tools/build-elementor.py   az elementor-hero.html előállítása a fenti háromból
 assets/
   chalet-hero-eredeti.mp4  az eredeti, változatlan videó (1280×720, 8 s, 24 fps)
-  chalet-hero.mp4          tekerésre optimalizált másolat — 1280×720, 3,3 MB
-  chalet-hero-mobil.mp4    ugyanaz 854×480-ban — 1,3 MB
-  chalet-poster.jpg        poszter: az első képkocka
+  chalet-hero-1080.mp4     1920×1080, lanczos + finom élesítés — 6,3 MB (nagy képernyő)
+  chalet-hero.mp4          1280×720 — 3,3 MB (közepes képernyő, lassú net)
+  chalet-hero-portre.mp4    720×1280, középre vágott 9:16 — 2,9 MB (álló telefon)
+  chalet-poster.jpg        poszter 1920×1080
+  chalet-poster-portre.jpg poszter álló telefonra 720×1280
   chalet-belso.jpg         a záró képkocka (belső tér)
 ```
 
 ## Hol kell URL-t cserélni
 
-**Önálló oldal:** `js/main.js` legelső három sora.
+**Önálló oldal:** `js/main.js` legelső sorai.
 
 ```js
-var desktopVideoUrl = "assets/chalet-hero.mp4";
-var mobileVideoUrl  = "assets/chalet-hero-mobil.mp4";   /* üresen a desktop tölt be */
+var desktopVideoUrl = "assets/chalet-hero-1080.mp4";    /* nagy / Retina képernyő */
+var tabletVideoUrl  = "assets/chalet-hero.mp4";         /* közepes képernyő, lassú net */
+var mobileVideoUrl  = "assets/chalet-hero-portre.mp4";  /* álló telefon (9:16 vágás) */
 var posterUrl       = "assets/chalet-poster.jpg";
+var posterMobileUrl = "assets/chalet-poster-portre.jpg";
 ```
 
 **Elementor:** `elementor-hero.html`, a `<script>` elején.
 
 ```js
-var desktopVideoUrl = "IDE_JON_A_DESKTOP_VIDEO_URL";
-var mobileVideoUrl  = "IDE_JON_A_MOBIL_VIDEO_URL";
-var posterUrl       = "IDE_JON_A_POSTER_KEP_URL";
+var desktopVideoUrl = "IDE_JON_A_DESKTOP_VIDEO_URL";    /* kötelező */
+var tabletVideoUrl  = "";                               /* opcionális */
+var mobileVideoUrl  = "";                               /* opcionális */
+var posterUrl       = "IDE_JON_A_POSTER_KEP_URL";       /* kötelező */
+var posterMobileUrl = "";                               /* opcionális */
 ```
+
+Ha csak egy videód van, elég a `desktopVideoUrl` — a többi üresen hagyva
+automatikusan arra esik vissza.
 
 ## Beillesztés Elementorba
 
-1. Töltsd fel a Média könyvtárba: `chalet-hero.mp4`, `chalet-hero-mobil.mp4`,
-   `chalet-poster.jpg`. Másold ki a három URL-t.
+1. Töltsd fel a Média könyvtárba: `chalet-hero-1080.mp4`, `chalet-hero.mp4`,
+   `chalet-hero-portre.mp4`, `chalet-poster.jpg`, `chalet-poster-portre.jpg`.
+   Másold ki az URL-eket.
 2. Húzz egy **HTML widgetet** az oldalra, és illeszd be az `elementor-hero.html`
    teljes tartalmát.
-3. Írd át a három URL-t a `<script>` elején.
+3. Írd át az URL-eket a `<script>` elején.
 
 További kapcsolók ugyanott:
 
@@ -88,21 +98,39 @@ A videó `muted`, `playsinline`, `webkit-playsinline`, `preload="auto"` — ninc
 használjuk. iOS-en az első felhasználói interakcióra egyetlen `play()` + azonnali
 `pause()` oldja fel a dekódolást, utána a videó továbbra is csak a scrollt követi.
 
-## Tekerésre optimalizált videó
+## Videóváltozatok
 
-Az eredeti fájlban egyetlen kulcsképkocka volt, ami akadóvá tenné a tekerést.
-A `chalet-hero.mp4` ugyanazt a képet tartalmazza, csak 6 képkockánként van benne
-kulcsképkocka, hang nélkül:
+Az eredeti fájlban egyetlen kulcsképkocka volt, ami akadóvá tenné a tekerést —
+minden változatban 6–8 képkockánként van kulcsképkocka, hang nélkül.
+
+A forrás 1280×720, ezért a nagy változat felskálázott: lanczos átméretezés és
+finom élesítés, ami láthatóan tisztább, mint amikor a böngésző nyújtja fel a
+720p-t. Az álló telefonos változat nem felskálázás, hanem a képkocka középső
+9:16-os részének kivágása — így a telefon nem 4–5-szörös, csak kb. kétszeres
+nagyítással jeleníti meg.
 
 ```bash
+# nagy képernyő — 1920×1080
+ffmpeg -i assets/chalet-hero-eredeti.mp4 -an \
+  -vf "scale=1920:1080:flags=lanczos,unsharp=5:5:0.85:5:5:0.0" \
+  -c:v libx264 -preset slow -crf 22 -g 8 -keyint_min 8 -sc_threshold 0 \
+  -pix_fmt yuv420p -movflags +faststart assets/chalet-hero-1080.mp4
+
+# közepes képernyő — 1280×720
 ffmpeg -i assets/chalet-hero-eredeti.mp4 -an -c:v libx264 -preset slow -crf 22 \
   -g 6 -keyint_min 6 -sc_threshold 0 -pix_fmt yuv420p -movflags +faststart \
   assets/chalet-hero.mp4
 
-ffmpeg -i assets/chalet-hero-eredeti.mp4 -an -vf scale=854:480 -c:v libx264 \
-  -preset slow -crf 26 -g 6 -keyint_min 6 -sc_threshold 0 -pix_fmt yuv420p \
-  -movflags +faststart assets/chalet-hero-mobil.mp4
+# álló telefon — 720×1280, középre vágva
+ffmpeg -i assets/chalet-hero-eredeti.mp4 -an \
+  -vf "crop=406:720:437:0,scale=720:1280:flags=lanczos,unsharp=5:5:0.8:5:5:0.0" \
+  -c:v libx264 -preset slow -crf 21 -g 6 -keyint_min 6 -sc_threshold 0 \
+  -pix_fmt yuv420p -movflags +faststart assets/chalet-hero-portre.mp4
 ```
+
+A böngésző a képernyőméret, a pixelsűrűség és a kapcsolat alapján választ; álló
+telefonon a portré változat megy, elforgatáskor menet közben vált, a görgetési
+pozíciót megtartva.
 
 ## Tartalékok és hozzáférhetőség
 
